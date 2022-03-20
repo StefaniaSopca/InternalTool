@@ -1,0 +1,18 @@
+mat-form-field {
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+}
+
+
+.formSignup{
+  margin-top: 30px;
+  margin-left: 400px;
+  margin-right: 400px;
+ 
+}
+
+.formSignup button{
+  margin-top: 10px;
+  margin-left: 340px;
+}

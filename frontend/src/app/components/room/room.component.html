@@ -1,0 +1,36 @@
+
+<button (click)="generateRoomCode()" [disabled]="clicked">Generate room code</button>
+  <div style="border: 5px solid; height: 30px; width: 130px">
+  <mat-label id="code"></mat-label></div>
+
+
+  <form [formGroup]="roomForm" (ngSubmit)="getRoom()" novalidate>
+
+    <mat-form-field>
+      <mat-label>Join your team</mat-label>
+      <input matInput placeholder="your team room code" formControlName="roomCode">
+    </mat-form-field>
+
+    <button color="accent" [disabled]="!roomForm.valid" mat-raised-button type="submit">
+      <span>Join</span>
+    </button>
+    </form>
+
+
+<!-- <form [formGroup]="roomForm" (ngSubmit)="getRoom()" class="formLogin" novalidate>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="ex. stefania@gmail.com" formControlName="email">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput type="password" placeholder="Stefania" formControlName="password">
+  </mat-form-field>
+
+    <button color="accent" [disabled]="!roomForm.valid" mat-raised-button type="submit">
+      <span>Get room code</span>
+    </button>
+
+
+</form> -->

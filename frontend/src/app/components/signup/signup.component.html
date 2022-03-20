@@ -1,4 +1,6 @@
-<form [formGroup]="signupForm" (ngSubmit)="signup()" novalidate>
+
+
+<form [formGroup]="signupForm" (ngSubmit)="signup()" class="formSignup" novalidate>
   <mat-form-field>
     <mat-label>First name</mat-label>
     <input matInput placeholder="ex. Stefania" formControlName="name">
@@ -12,9 +14,10 @@
     <input matInput type="password" placeholder="Stefania" formControlName="password">
   </mat-form-field>
 
-    <button color="accent" [disabled]="!signupForm.valid" mat-raised-button type="submit">
-      <span>Sing up</span>
+    <button color="accent" [disabled]="!signupForm.valid" mat-raised-button type="submit" >
+      <span>Sign up</span>
     </button>
 
 
 </form>
+

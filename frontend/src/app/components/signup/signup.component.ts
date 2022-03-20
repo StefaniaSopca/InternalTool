@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,9 +14,10 @@ export class SignupComponent implements OnInit {
 
   signupForm!: FormGroup;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log("here");
     this.signupForm = this.createFormGroup();
   }
 
@@ -30,5 +34,17 @@ export class SignupComponent implements OnInit {
 
   signup():void{
     console.log(this.signupForm.value);
-  }
+    this.authService
+      .signup(this.signupForm.value)
+      .subscribe((msg) =>
+       { this.router.navigate(['/room']),
+        console.log(msg)}
+      )
+
+
+  };
 }
+function msg(msg: any) {
+  throw new Error('Function not implemented.');
+}
+
