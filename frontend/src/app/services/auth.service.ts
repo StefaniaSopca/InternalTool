@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { first, catchError, tap } from "rxjs/operators";
+import { first, catchError, tap, map } from "rxjs/operators";
 
 import { User } from "../models/User";
 import { ErrorHandlerService } from './error-handler.service';
+import { TokenStorageService } from './token-storage.service';
 
 
 
@@ -15,7 +16,7 @@ import { ErrorHandlerService } from './error-handler.service';
 })
 export class AuthService {
 
-  private url = "http://localhost:3000/auth";
+  private url = "http://localhost:3000";
 
   isLogged$ = new BehaviorSubject<boolean>(false);
 
@@ -29,25 +30,22 @@ export class AuthService {
   constructor(
     private http: HttpClient,
      private errorHandlerService: ErrorHandlerService,
-     private router: Router) {
+     private router: Router, private tokenStorage: TokenStorageService) {
 
   }
 
   signup(user: Omit<User, "id">): Observable<User>{
-    return this.http.post<User>(`${this.url}/signup`, user, this.httpOptions).pipe(first(), catchError(this.errorHandlerService.handleError<User>("signup")));
+    console.log("sign up service")
+    return this.http.post<User>(`${this.url}/auth/signup`, user, this.httpOptions).pipe(first(), catchError(this.errorHandlerService.handleError<User>("signup")));
   }
 
   login(
     email: Pick<User, "email">,
     password: Pick<User, "password">
-  )
-  // : Observable<{
-  //   token: string;
-  //   userId: Pick<User, "id">
-  //  }>
+  ): Observable<any>
   {
-  //   return this.http
-  //     .post(`${this.url}/login`, { email, password }, this.httpOptions);
-
+    console.log("login service")
+    return this.http
+      .post(`${this.url}/auth/login`, { email, password }, this.httpOptions)
   }
 }

@@ -1,6 +1,10 @@
 
-<button (click)="generateRoomCode()" [disabled]="clicked">Generate room code</button>
-  <div style="border: 5px solid; height: 30px; width: 130px">
+<button (click)="generateRoomCode()" [disabled]="clicked">Create a room</button>
+
+<button (click)="joinYourTeam()" [disabled]="clicked">Join your team</button>
+
+
+  <!-- <div style="border: 5px solid; height: 30px; width: 130px">
   <mat-label id="code"></mat-label></div>
 
 
@@ -14,7 +18,7 @@
     <button color="accent" [disabled]="!roomForm.valid" mat-raised-button type="submit">
       <span>Join</span>
     </button>
-    </form>
+    </form> -->
 
 
 <!-- <form [formGroup]="roomForm" (ngSubmit)="getRoom()" class="formLogin" novalidate>

@@ -6,9 +6,15 @@ import { PostsComponent } from "./components/posts/posts.component";
 import { LoginComponent } from "./components/login/login.component";
 import { SignupComponent } from "./components/signup/signup.component";
 import { RoomComponent } from "./components/room/room.component";
+import { NewRoomComponent } from './components/new-room/new-room.component';
+import { OldRoomComponent } from './components/old-room/old-room.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {path: "home", component: HomeComponent},
+  {path: "new-room", component: NewRoomComponent},
+  {path: "old-room", component: OldRoomComponent},
+  {path: "profile", component: ProfileComponent},
   {path: "posts", component: PostsComponent},
   {path: "login", component: LoginComponent},
   {path: "signup", component: SignupComponent},

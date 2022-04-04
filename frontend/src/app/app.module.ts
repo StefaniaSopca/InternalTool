@@ -24,6 +24,9 @@ import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { RoomComponent } from './components/room/room.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { NewRoomComponent } from './components/new-room/new-room.component';
+import { OldRoomComponent } from './components/old-room/old-room.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -37,6 +40,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     PostsComponent,
     ToolbarComponent,
     RoomComponent,
+    NewRoomComponent,
+    OldRoomComponent,
+    ProfileComponent,
 
   ],
   imports: [

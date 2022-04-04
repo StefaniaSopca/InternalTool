@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
     this.authService
       .signup(this.signupForm.value)
       .subscribe((msg) =>
-       { this.router.navigate(['/room']),
+       { this.router.navigate(['/login']),
         console.log(msg)}
       )
 
