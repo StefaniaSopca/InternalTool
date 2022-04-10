@@ -32,7 +32,7 @@ export class OldRoomComponent implements OnInit {
     console.log("old room " + this.roomForm.get('roomCode')?.value);
     this.r = this.roomForm.get('roomCode')?.value;
     this.email = sessionStorage.getItem('auth-user')!;
-    this.authService.createRoom(this.email, this.r).subscribe((msg)=>{this.router.navigate(['/home']), console.log(msg)})
+    this.authService.joinRoom(this.email, this.r).subscribe((msg: any)=>{this.router.navigate(['/home']), console.log(msg)})
     this.chatService.setRoom(this.r);
   }
 

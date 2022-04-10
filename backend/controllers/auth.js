@@ -125,18 +125,28 @@ exports.createRoom = async (req, res, next) => {
 
     try
     {
-
       const roomDetails = 
       {
-          
           email: email,
           roomNo: roomNo
       };
 
-      const result = await Room.save(roomDetails);
-
-      res.status(201).json({ message: 'Join Room registered!' });
-    
+      // daca exista deja user -roomNo ib DB -> nu mai insereaza iar
+      const result = await Room.find(roomDetails.roomNo);
+      if(result[0].length != 0)
+      {
+        // const error = new Error('A room with this email could not be found.');
+        // error.statusCode = 401;
+        // throw error;
+        const resInsert = await Room.save(roomDetails);
+        res.status(201).json({ message: 'Join Room !' });
+      }
+      else{
+        const error = new Error('Join Invalid');
+        error.statusCode = 401;
+        console.error(error);
+        throw error;
+      }
     
     } catch (err) 
     {

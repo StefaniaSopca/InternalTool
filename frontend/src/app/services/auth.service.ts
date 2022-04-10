@@ -53,6 +53,12 @@ export class AuthService {
     return this.http.post<number>(`${this.url}/auth/createRoom`, {email, roomNo}, this.httpOptions)
   }
 
+  joinRoom(email: string, roomNo: number): Observable<any>{
+    console.log("join room service")
+
+    return this.http.post<number>(`${this.url}/auth/joinRoom`, {email, roomNo}, this.httpOptions)
+  }
+
   addUsers(email: string): Observable<string>
   {
     console.log("add users")

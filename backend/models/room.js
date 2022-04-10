@@ -11,12 +11,24 @@ module.exports = class Room {
     return db.execute('SELECT * FROM rooms WHERE email = ?', [email]);
   }
 
+  static find(roomNo) {
+    return db.execute('SELECT * FROM rooms WHERE roomNo = ?', [roomNo]);
+  }
+
   static save(room) {
     return db.execute(
       'INSERT INTO rooms ( email, roomNo) VALUES ( ?, ?)',
       [room.email, room.roomNo]
     );
   }
+
+  // static save(room) {
+  //   return db.execute(
+  //     'INSERT INTO rooms ( email, roomNo) VALUES ( ?, ?)',
+  //     [room.email, room.roomNo]
+  //   );
+  // }
+
 
   static select(username, roomNo) {
     console.log("select", username, roomNo);
