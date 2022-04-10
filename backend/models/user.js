@@ -17,4 +17,10 @@ module.exports = class User {
       [user.name, user.email, user.password]
     );
   }
+
+  static select(username) {
+    console.log("select", username);
+    return db.execute(
+      'SELECT name FROM users WHERE name <> ?', [username]);
+  }
 };

@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NewRoomComponent } from './components/new-room/new-room.component';
 import { OldRoomComponent } from './components/old-room/old-room.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 
 
@@ -43,6 +45,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     NewRoomComponent,
     OldRoomComponent,
     ProfileComponent,
+    ChatComponent,
 
   ],
   imports: [
@@ -59,7 +62,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     HttpClientModule,
     MatSidenavModule,
     MatSliderModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

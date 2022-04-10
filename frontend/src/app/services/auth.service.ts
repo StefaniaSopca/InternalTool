@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first, catchError, tap, map } from "rxjs/operators";
 
+import { Room } from "../models/Room";
 import { User } from "../models/User";
 import { ErrorHandlerService } from './error-handler.service';
 import { TokenStorageService } from './token-storage.service';
@@ -29,8 +30,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-     private errorHandlerService: ErrorHandlerService,
-     private router: Router, private tokenStorage: TokenStorageService) {
+    private errorHandlerService: ErrorHandlerService,
+    private router: Router, private tokenStorage: TokenStorageService) {
 
   }
 
@@ -39,13 +40,22 @@ export class AuthService {
     return this.http.post<User>(`${this.url}/auth/signup`, user, this.httpOptions).pipe(first(), catchError(this.errorHandlerService.handleError<User>("signup")));
   }
 
-  login(
-    email: Pick<User, "email">,
-    password: Pick<User, "password">
-  ): Observable<any>
+  login(email: Pick<User, "email">,password: Pick<User, "password">): Observable<any>
   {
     console.log("login service")
     return this.http
       .post(`${this.url}/auth/login`, { email, password }, this.httpOptions)
+  }
+
+  createRoom(email: string, roomNo: number): Observable<any>{
+    console.log("create room service")
+
+    return this.http.post<number>(`${this.url}/auth/createRoom`, {email, roomNo}, this.httpOptions)
+  }
+
+  addUsers(email: string): Observable<string>
+  {
+    console.log("add users")
+    return this.http.post<string>(`${this.url}/auth/addUsers`, {email})
   }
 }

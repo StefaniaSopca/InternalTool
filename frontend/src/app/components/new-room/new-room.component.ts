@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
+import { AuthService } from 'src/app/services/auth.service';
 import { ShowMenuService } from 'src/app/services/show-menu.service';
 
 @Component({
@@ -12,20 +14,25 @@ export class NewRoomComponent implements OnInit {
 
   roomForm!: FormGroup;
   displayedMenu = false;
-  constructor(private showMenu: ShowMenuService, private router: Router) { }
+  constructor(private authService: AuthService, private showMenu: ShowMenuService, private router: Router) { }
   clicked=false;
+  email!: string;
+  r = 0;
   ngOnInit(): void {
     this.clicked=true;
-    var r= Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+
+    this.r= Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
     const code = document.getElementById('code');
     if( code != null)
-      code.innerHTML = r.toString();
+      code.innerHTML = this.r.toString();
   }
 
-  joinYourTeam(){
+  joinYourTeam():void{
     this.showMenu.setDisplayedMenu(true);
-    console.log("joined DAR NU FAC NIMIC IN BACKEND");
-    this.router.navigate(['/home'])
+    console.log("new room " + this.r)
+    this.email = sessionStorage.getItem('auth-user')!;
+    this.authService.createRoom(this.email, this.r).subscribe((msg)=>{this.router.navigate(['/home']), console.log(msg)})
+
   }
 
 

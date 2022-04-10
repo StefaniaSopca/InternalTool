@@ -30,7 +30,9 @@ router.post(
 
 router.post('/login', authController.login);
 
-
+router.post('/createRoom', authController.createRoom);
 //router.post('/login', authController.login);
+
+router.post('/addUsers', authController.addUsers);
 
 module.exports = router;
