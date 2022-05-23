@@ -24,14 +24,14 @@ export class OldRoomComponent implements OnInit {
   {
     return new FormGroup({
       roomCode: new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
-
     });
   }
+
   joinYourTeam(){
     this.showMenu.setDisplayedMenu(true);
     console.log("old room " + this.roomForm.get('roomCode')?.value);
     this.r = this.roomForm.get('roomCode')?.value;
-    this.email = sessionStorage.getItem('auth-user')!;
+    this.email = sessionStorage.getItem('auth-email')!;
     this.authService.joinRoom(this.email, this.r).subscribe((msg: any)=>{this.router.navigate(['/home']), console.log(msg)})
     this.chatService.setRoom(this.r);
   }

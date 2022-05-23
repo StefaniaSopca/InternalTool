@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { io } from 'socket.io-client';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
+
+
 const SOCKET_ENDPOINT = 'localhost:3000';
 @Component({
   selector: 'app-chat',
@@ -19,17 +23,32 @@ export class ChatComponent implements OnInit {
   addUsersFlag: any=[];
   roomNo!: number;
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService, private router: Router) { }
   ngOnInit() {
     this.setupSocketConnection();
     console.log(this.addUsersFlag);
     this.username = sessionStorage.getItem('auth-user')!;
     this.roomNo = this.chatService.getRoom()
-    
+
     this.subscription= this.chatService.pressedChat(this.username, this.roomNo)
       .pipe(tap(arr => console.log(arr)))
-      .subscribe( arr => {this.addUsersFlag.push(...arr.arr);}, err => console)
+      .subscribe (async arr =>{
+        if(arr.arr == 0)
+        {
+          console.log("nada")
+          setTimeout(() => {
+
+            this.router.navigate(['/home']);
+        }, 5000);
+        }
+        else
+          { this.addUsersFlag.push(...arr.arr);}}
+        )
     console.log("flag " , this.addUsersFlag);
+  }
+
+  ngOnDestroy(): void {
+    console.log("destroy chat component")
   }
 
   setupSocketConnection() {

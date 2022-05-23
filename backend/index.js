@@ -10,10 +10,7 @@ const app = express();
 
 const ports = process.env.PORT || 3000;
 
-
 const http = require('http').createServer(app);
-
-
 
 const io = require('socket.io')(http,
     {handlePreflightRequest: (req, res) => {
@@ -50,7 +47,14 @@ io.on('connection', (socket) => {
         console.log(msg);
         socket.broadcast.emit('message-broadcast', msg);
     });
+    socket.on('disconnect', () => {
+        console.log('a user disconnected!');
+      });
 });
+
+
+
+
 
 http.listen(ports, ()=>console.log(`Listening on port ${ports}`));
 

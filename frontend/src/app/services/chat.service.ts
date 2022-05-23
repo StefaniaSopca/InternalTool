@@ -12,6 +12,7 @@ export class ChatService {
   private url='http://localhost:3000';
 
   roomNo!: number;
+  logout: boolean = false;
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ "Content-Type": "application/json"}),
   };
@@ -42,15 +43,26 @@ export class ChatService {
   }
 
   pressedChat(username: string, roomNo: number): Observable<any> {
-
+    console.log("logout : ", this.logout)
     return this.http.post(`${this.url}/auth/addUsers`, {username, roomNo})
   }
 
   pressedChatUpdate(username: string, roomNo: number): Observable<string[]> {
+    console.log("logout : ", this.logout)
     console.log(" return http", username, roomNo)
     return this.http.post<string[]>(`${this.url}/auth/addUsers`, {username, roomNo})
 
   }
+
+  getLogout(): boolean{
+    return this.logout;
+  }
+
+  setLogout(logout: boolean){
+    
+    this.logout = logout;
+  }
+
 
   setRoom(roomNo: number) { this.roomNo = roomNo;}
   getRoom(): number{return this.roomNo}

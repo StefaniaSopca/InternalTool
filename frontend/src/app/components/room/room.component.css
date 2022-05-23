@@ -1,0 +1,22 @@
+
+.container{
+  position: relative;
+  height: 400px;
+  width: 1100px;
+}
+
+.center
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.roomBtn
+{
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  background-color: rgb(135, 160, 189);
+  font-size: 15px;
+}

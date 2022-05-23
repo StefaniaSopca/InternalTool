@@ -11,17 +11,21 @@ import { OldRoomComponent } from './components/old-room/old-room.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatComponent } from './components/chat/chat.component';
 
+import { AuthGuardService as AuthGuard
+} from './services/auth-guards.service';
+
+// redirect fara login
 const routes: Routes = [
-  {path: "home", component: HomeComponent},
-  {path: "new-room", component: NewRoomComponent},
-  {path: "old-room", component: OldRoomComponent},
-  {path: "profile", component: ProfileComponent},
-  {path: "posts", component: PostsComponent},
+  {path: "home", component: HomeComponent, canActivate: [AuthGuard] },
+  {path: "new-room", component: NewRoomComponent, canActivate: [AuthGuard] },
+  {path: "old-room", component: OldRoomComponent, canActivate: [AuthGuard] },
+  {path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
+  {path: "posts", component: PostsComponent, canActivate: [AuthGuard] },
   {path: "login", component: LoginComponent},
-  {path: "chat", component: ChatComponent},
+  {path: "chat", component: ChatComponent, canActivate: [AuthGuard] },
   {path: "signup", component: SignupComponent},
-  {path: "room", component: RoomComponent},
-  {path: "**", redirectTo: ""},
+  {path: "room", component: RoomComponent,canActivate: [AuthGuard]  },
+  
 ];
 
 @NgModule({
@@ -29,3 +33,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+

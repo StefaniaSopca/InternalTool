@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { JwtHelperService,JWT_OPTIONS   } from '@auth0/angular-jwt';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { first, catchError, tap, map } from "rxjs/operators";
@@ -19,7 +20,7 @@ export class AuthService {
 
   private url = "http://localhost:3000";
 
-  isLogged$ = new BehaviorSubject<boolean>(false);
+  //isLogged$ = new BehaviorSubject<boolean>(false);
 
   userId!: Pick<User, "id">;
 
@@ -33,6 +34,14 @@ export class AuthService {
     private errorHandlerService: ErrorHandlerService,
     private router: Router, private tokenStorage: TokenStorageService) {
 
+  }
+  public jwtHelper:JwtHelperService = new JwtHelperService();
+  public isAuthenticated(): boolean {
+
+    const token = this.tokenStorage.getToken();    // Check whether the token is expired and return
+    // true or false
+    console.log( token, token!)
+    return !this.jwtHelper.isTokenExpired(token!);
   }
 
   signup(user: Omit<User, "id">): Observable<User>{

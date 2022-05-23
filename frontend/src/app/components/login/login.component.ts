@@ -13,13 +13,13 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
-  isLoggedIn = false;
+  //isLoggedIn = false;
   ngOnInit(): void {
     this.loginForm = this.createFormGroup();
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
+    //if (this.tokenStorage.getToken()) {
+      //this.isLoggedIn = true;
       // this.roles = this.tokenStorage.getUser().roles;
-    }
+    //}
   }
 
   createFormGroup() : FormGroup
@@ -41,8 +41,9 @@ export class LoginComponent implements OnInit {
          {
           this.tokenStorage.saveToken(data.token);
           this.tokenStorage.saveUser(data.username);
+          this.tokenStorage.saveEmail(data.email);
          // this.isLoginFailed = false;
-          this.isLoggedIn = true;
+          //this.isLoggedIn = true;
           //this.roles = this.tokenStorage.getUser().roles;
           this.router.navigate(['/room']),
           console.log('logged!!!!', data.username)}

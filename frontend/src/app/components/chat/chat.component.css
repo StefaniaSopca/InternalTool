@@ -1,4 +1,8 @@
-
+.chat-messages
+{
+  float: right;
+  width: 90%;
+}
 chat-messages-show-container{
   background: #c3c3c3;
   height: 400px;

@@ -27,7 +27,6 @@ exports.signup = async (req, res, next) => {
       };
 
       const result = await User.save(userDetails);
-
       res.status(201).json({ message: 'User registered!' });
     
    
@@ -69,9 +68,9 @@ exports.login = async (req, res, next) => {
         userId: storedUser.id,
       },
       'secretfortoken',
-      { expiresIn: '1h' }
+      { expiresIn: '60s' }
     );
-    res.status(200).json({token:token, username: storedUser.name });
+    res.status(200).json({token:token, username: storedUser.name, email: storedUser.email });
     
   } catch (err) {
     if (!err.statusCode) {
@@ -87,24 +86,23 @@ exports.createRoom = async (req, res, next) => {
 
   console.log(email,roomNo);
   const errors = validationResult(req);
-  if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() });}
-
+  if (!errors.isEmpty()) 
+  { 
+    return res.status(400).json({ errors: errors.array() });
+  }
   try
   {
-
     const roomDetails = 
-    {
-        
+    {     
         email: email,
         roomNo: roomNo
     };
 
     const result = await Room.save(roomDetails);
 
-    res.status(201).json({ message: 'Room registered!' });
-  
-  
-  } catch (err) 
+    res.status(201).json({ message: 'Room registered!' });  
+  }
+  catch (err) 
   {
     if (!err.statusCode) 
     {
@@ -132,14 +130,18 @@ exports.createRoom = async (req, res, next) => {
       };
 
       // daca exista deja user -roomNo ib DB -> nu mai insereaza iar
-      const result = await Room.find(roomDetails.roomNo);
-      if(result[0].length != 0)
+      const resultRoom = await Room.find(roomDetails.roomNo);
+      const resultUser = await User.find(roomDetails.email)
+      console.log(resultRoom[0])
+
+      if(resultRoom[0].length != 0 && resultUser[0].length == 0)
       {
-        // const error = new Error('A room with this email could not be found.');
-        // error.statusCode = 401;
-        // throw error;
         const resInsert = await Room.save(roomDetails);
-        res.status(201).json({ message: 'Join Room !' });
+        res.status(201).json({ message: 'Join Room user nou in echipa!' });
+      }
+      else if(resultRoom[0].length != 0 && resultUser[0].length != 0)
+      {
+        res.status(201).json({ message: 'Join Room user existent in echipa!' });
       }
       else{
         const error = new Error('Join Invalid');
@@ -162,35 +164,29 @@ exports.createRoom = async (req, res, next) => {
 exports.addUsers = async (req, res, next) => {
   const username = req.body.username;
   const roomNo = req.body.roomNo;
-  console.log("U",username);
+
   try{
-    console.log("here")
     const users = await Room.select(username, roomNo);
-    console.log("here1")
-    // if (users[0].length !== 1) {
-    //   console.log("here2")
-    //   const error = new Error('select 0 found.');
-    //   error.statusCode = 401;
-    //   throw error;
-    // }
 
     const listOfUsers = users[0];
-    console.log(listOfUsers);
     const arr= new Array(listOfUsers.length)
+
     for (let i=0; i<listOfUsers.length; i ++)
     {
       arr[i] = listOfUsers[i].email;
     }
-
-    console.log(arr);
-    res.status(201).json({ arr:  arr});
+    if(arr.length == 0)
+      res.status(201).json({arr: 0})
+    else 
+      res.status(201).json({ arr:  arr});
   }
-  catch(err){
-    if (!err.statusCode) 
+  catch(err)
   {
-    err.statusCode = 500;
-    console.log(err.message);
-  }
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
   next(err);
   }
 }

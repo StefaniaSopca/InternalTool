@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from './services/chat.service';
 import { ShowMenuService } from './services/show-menu.service';
@@ -10,13 +11,13 @@ import { TokenStorageService } from './services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService) {
+  constructor(private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService, private router: Router) {
     // this.chatService.getMessage().subscribe((data: {user:string, message:string}) => {
     //   this.messageArray.push(data);
     // })
    }
   displayedMenu = false;
-  isLoggedIn = false;
+  //isLoggedIn = false;
   username!: string;
   addUsersFlag!: string;
   roomNo!: number;
@@ -55,16 +56,20 @@ export class AppComponent {
   ngOnInit(): void {
     //this.displayedMenu = false;
     console.log('get : ', this.displayedMenu);
-    if(this.isLoggedIn){
+    // if(this.isLoggedIn){
       const user = this.tokenStorageService.getUser();
       this.addUsersFlag ='Am apasat, se adauga users init';
       this.username = user;
-    }
+    //}
+  }
+
+  ngOnDestroy(): void {
+    console.log("destroy app component")
   }
 
   gets(){
-    console.log('gets : ', this.displayedMenu);
-    this.isLoggedIn = true;
+
+    //this.isLoggedIn = true;
     const user = this.tokenStorageService.getUser();
 
     this.username = user;
@@ -73,18 +78,26 @@ export class AppComponent {
 
   logout(): void
   {
+    this.chatService.setLogout(true);
     this.tokenStorageService.signOut();
+    //this.isLoggedIn = false;
+    this.router.navigate(['home']);
+
     window.location.reload();
   }
 
 
   addUsers(username: string): void
   {
-    this.roomNo = this.chatService.getRoom();
+    // if(this.isLoggedIn)
+    // {
+      this.roomNo = this.chatService.getRoom();
 
-   // this.addUsersFlag ="Am apasat, se adauga users";
-   console.log("helo ", username, this.roomNo);
-   this.chatService.pressedChatUpdate(username, this.roomNo)
+    // this.addUsersFlag ="Am apasat, se adauga users";
+      console.log("helo ", username, this.roomNo);
+
+     this.chatService.pressedChatUpdate(username, this.roomNo)
+   //}
   }
   // selectedUserHandler(phone: string): void{
   //   this.selectedUser = this.userList.find(user => user.phone === phone);
