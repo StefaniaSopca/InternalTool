@@ -1,4 +1,13 @@
-<form [formGroup]="roomForm" (ngSubmit)="joinYourTeam()" novalidate>
+
+
+<div class="list-rooms">
+  <mat-list  *ngFor="let roomNo of listRooms">
+    <!-- <mat-list-item>{{ user }}</mat-list-item> -->
+    <button mat-list-item (click)="myFunc(roomNo)" > {{ roomNo }} </button>
+    </mat-list>
+
+</div>
+<!-- <form [formGroup]="roomForm" (ngSubmit)="joinYourTeam()" novalidate>
 
   <mat-form-field>
     <mat-label id='code'>Join your team</mat-label>
@@ -8,4 +17,4 @@
   <button color="accent" [disabled]="!roomForm.valid" mat-raised-button type="submit">
     <span>Join</span>
   </button>
-  </form>
+  </form> -->

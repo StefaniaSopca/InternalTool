@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoomService } from 'src/app/services/room.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
@@ -8,13 +9,14 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 })
 export class ProfileComponent implements OnInit {
 
-  currentEmail: any;
+  currentUser: any;
   currentToken : any;
-  constructor(private token: TokenStorageService) { }
+  roomNo: number =0;
+  constructor(private token: TokenStorageService, private roomService: RoomService) { }
 
   ngOnInit(): void {
-
-    this.currentEmail = this.token.getEmail();
+    this.roomNo = this.roomService.getCurrentRoomNo();
+    this.currentUser = this.token.getUser();
     this.currentToken = this.token.getToken();
   }
 }

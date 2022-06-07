@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthGuardService } from './services/auth-guards.service';
 import { ChatService } from './services/chat.service';
 import { ShowMenuService } from './services/show-menu.service';
 import { TokenStorageService } from './services/token-storage.service';
@@ -11,7 +12,7 @@ import { TokenStorageService } from './services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService, private router: Router) {
+  constructor(private authGuards:AuthGuardService, private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService, private router: Router) {
     // this.chatService.getMessage().subscribe((data: {user:string, message:string}) => {
     //   this.messageArray.push(data);
     // })
@@ -21,6 +22,7 @@ export class AppComponent {
   username!: string;
   addUsersFlag!: string;
   roomNo!: number;
+  //username2 = this.tokenStorageService.getUser();
   // public roomId!: string;
   // public messageText!: string;
   // public messageArray: { user: string, message: string}[] = [];
@@ -56,11 +58,12 @@ export class AppComponent {
   ngOnInit(): void {
     //this.displayedMenu = false;
     console.log('get : ', this.displayedMenu);
-    // if(this.isLoggedIn){
-      const user = this.tokenStorageService.getUser();
+    if(this.gets()){
+      this.username = this.tokenStorageService.getUser();
+      console.log("here", this.username);
       this.addUsersFlag ='Am apasat, se adauga users init';
-      this.username = user;
-    //}
+
+    }
   }
 
   ngOnDestroy(): void {
@@ -70,10 +73,12 @@ export class AppComponent {
   gets(){
 
     //this.isLoggedIn = true;
-    const user = this.tokenStorageService.getUser();
-
-    this.username = user;
-    return this.showMenu.getDisplayedMenu();
+    const user = this.tokenStorageService.getToken();
+    //rezolva aparitia userului pe sidebar
+    this.username = this.tokenStorageService.getUser();
+    if( user != null)
+      return true;
+    else return false;
   }
 
   logout(): void

@@ -30,11 +30,9 @@ export class NewRoomComponent implements OnInit {
   joinYourTeam():void{
     this.showMenu.setDisplayedMenu(true);
     console.log("new room " + this.r)
-    this.email = sessionStorage.getItem('auth-user')!;
+    this.email = sessionStorage.getItem('auth-email')!;
     this.authService.createRoom(this.email, this.r).subscribe((msg)=>{this.router.navigate(['/home']), console.log(msg)})
-
   }
-
 
 
 

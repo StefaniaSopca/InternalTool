@@ -15,9 +15,15 @@ module.exports = class Room {
     return db.execute('SELECT * FROM rooms WHERE roomNo = ?', [roomNo]);
   }
 
+  static findAllRooms(email) {
+    return db.execute('SELECT roomNo FROM rooms WHERE id_user = (SELECT id FROM users WHERE email = ?)', [email]);
+  }
+
+
   static save(room) {
+
     return db.execute(
-      'INSERT INTO rooms ( email, roomNo) VALUES ( ?, ?)',
+      'INSERT INTO rooms ( id_user, roomNo) VALUES ( (SELECT id FROM users WHERE email = ?), ?)',
       [room.email, room.roomNo]
     );
   }

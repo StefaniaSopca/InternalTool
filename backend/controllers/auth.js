@@ -27,9 +27,8 @@ exports.signup = async (req, res, next) => {
       };
 
       const result = await User.save(userDetails);
-      res.status(201).json({ message: 'User registered!' });
-    
-   
+      res.status(201).json({ message: 'User registered in database!' });
+
     } catch (err) 
     {
       if (!err.statusCode) 
@@ -47,13 +46,12 @@ exports.login = async (req, res, next) => {
     const user = await User.find(email);
 
     if (user[0].length !== 1) {
-      const error = new Error('A user with this email could not be found.');
+      const error = new Error('User not found.');
       error.statusCode = 401;
       throw error;
     }
 
     const storedUser = user[0][0];
-
     const isEqual = await bcrypt.compare(password, storedUser.password);
 
     if (!isEqual) {
@@ -97,7 +95,7 @@ exports.createRoom = async (req, res, next) => {
         email: email,
         roomNo: roomNo
     };
-
+    console.log(email);
     const result = await Room.save(roomDetails);
 
     res.status(201).json({ message: 'Room registered!' });  
@@ -113,42 +111,79 @@ exports.createRoom = async (req, res, next) => {
   }
 }
 
+  // exports.joinRoom = async (req, res, next) => {
+  //   const email = req.body.email;
+  //   const roomNo = req.body.roomNo;
+
+  //   console.log(email,roomNo);
+  //   const errors = validationResult(req);
+  //   if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() });}
+
+  //   try
+  //   {
+  //     const roomDetails = 
+  //     {
+  //         email: email,
+  //         roomNo: roomNo
+  //     };
+
+  //     // daca exista deja user -roomNo ib DB -> nu mai insereaza iar
+  //     const resultRoom = await Room.find(roomDetails.roomNo);
+  //     const resultUser = await User.find(roomDetails.email)
+  //     console.log(resultRoom[0])
+
+  //     if(resultRoom[0].length != 0 && resultUser[0].length == 0)
+  //     {
+  //       const resInsert = await Room.save(roomDetails);
+  //       res.status(201).json({ message: 'Join Room user nou in echipa!' });
+  //     }
+  //     else if(resultRoom[0].length != 0 && resultUser[0].length != 0)
+  //     {
+  //       res.status(201).json({ message: 'Join Room user existent in echipa!' });
+  //     }
+  //     else{
+  //       const error = new Error('Join Invalid');
+  //       error.statusCode = 401;
+  //       console.error(error);
+  //       throw error;
+  //     }
+    
+  //   } catch (err) 
+  //   {
+  //     if (!err.statusCode) 
+  //     {
+  //       err.statusCode = 500;
+  //       console.log(err.message);
+  //     }
+  //     next(err);
+  //   }
+  // }
+
   exports.joinRoom = async (req, res, next) => {
     const email = req.body.email;
-    const roomNo = req.body.roomNo;
+    
 
-    console.log(email,roomNo);
+    console.log(email);
     const errors = validationResult(req);
     if (!errors.isEmpty()) { return res.status(400).json({ errors: errors.array() });}
 
     try
     {
-      const roomDetails = 
-      {
-          email: email,
-          roomNo: roomNo
-      };
 
       // daca exista deja user -roomNo ib DB -> nu mai insereaza iar
-      const resultRoom = await Room.find(roomDetails.roomNo);
-      const resultUser = await User.find(roomDetails.email)
-      console.log(resultRoom[0])
+      const resultRoom = await Room.findAllRooms(email);
+     
+      const listRooms = resultRoom[0];
+    const arr= new Array(listRooms.length)
 
-      if(resultRoom[0].length != 0 && resultUser[0].length == 0)
-      {
-        const resInsert = await Room.save(roomDetails);
-        res.status(201).json({ message: 'Join Room user nou in echipa!' });
-      }
-      else if(resultRoom[0].length != 0 && resultUser[0].length != 0)
-      {
-        res.status(201).json({ message: 'Join Room user existent in echipa!' });
-      }
-      else{
-        const error = new Error('Join Invalid');
-        error.statusCode = 401;
-        console.error(error);
-        throw error;
-      }
+    for (let i=0; i<listRooms.length; i ++)
+    {
+      arr[i] = listRooms[i].roomNo;
+    }
+    if(arr.length == 0)
+      res.status(201).json({arr: 0})
+    else 
+      res.status(201).json({ arr:  arr});
     
     } catch (err) 
     {
