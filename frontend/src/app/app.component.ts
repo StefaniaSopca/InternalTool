@@ -78,7 +78,7 @@ export class AppComponent {
     this.username = this.tokenStorageService.getUser();
     if( user != null)
       return true;
-    else return false;
+    else { return false;}
   }
 
   logout(): void
@@ -95,40 +95,18 @@ export class AppComponent {
   addUsers(username: string): void
   {
     // if(this.isLoggedIn)
-    // {
-      this.roomNo = this.chatService.getRoom();
+  //   // {
+  //     this.roomNo = this.chatService.getRoom();
 
-    // this.addUsersFlag ="Am apasat, se adauga users";
-      console.log("helo ", username, this.roomNo);
+  //   // this.addUsersFlag ="Am apasat, se adauga users";
+  //     console.log("helo ", username, this.roomNo);
 
-     this.chatService.pressedChatUpdate(username, this.roomNo)
-   //}
+  //    this.chatService.pressedChatUpdate(username, this.roomNo)
+  //  //}
   }
-  // selectedUserHandler(phone: string): void{
-  //   this.selectedUser = this.userList.find(user => user.phone === phone);
-  //   this.roomId = this.selectedUser.roomId[this.selectedUser.id];
-  //   this.messageArray = [];
-
-  //   this.join(this.currentUser.name, this.roomId);
-  // }
-
-  // join(name: string, roomId: string): void{
-  //   this.chatService.joinRoom({user: name, roomId: roomId});
-  // }
-
-  // sendMessage(message: string): void{
-  //   this.chatService.sendMessage({
-  //     data: this.currentUser.name,
-  //     room: this.roomId,
-  //     message: this.messageText});
-
-  //     this.messageText ='';
-  // }
-
-
 
   title = 'posts';
-  opened= false;;
+  opened= false;
 }
 
 

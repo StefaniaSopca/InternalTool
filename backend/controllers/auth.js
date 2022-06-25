@@ -274,8 +274,8 @@ exports.events = async (req, res, next) => {
     };
 
     const result = await Events.save(email, event);
-
-    res.status(201).json({ message: 'Event in database!' });  
+    console.log("result",result[0].insertId)
+    res.status(201).json(result[0].insertId );  
   }
   catch (err) 
   {
@@ -288,6 +288,16 @@ exports.events = async (req, res, next) => {
   }
  
 }
+
+
+exports.optionGPSData = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+  next();
+  }
+
+
 
 exports.getEvents = async (req, res, next) => {
   
@@ -368,12 +378,12 @@ exports.noEvents = async (req, res, next) => {
 }
 
 exports.deleteEvent = async (req, res, next) => {
-  const title = req.body.title
-  console.log(title)
+  console.log("delete event ")
+  const idEvent = req.query.id
+  console.log("delete event ", idEvent)
+ // console.log("email: ",title);
   try{
-    const id = await Events.deleteEvent(title)
-    console.log("delete: " + id);
-
+    const id = await Events.deleteEvent(idEvent)
    
     res.status(201).json({ message: "delete ok"});  
   }
@@ -386,7 +396,7 @@ exports.deleteEvent = async (req, res, next) => {
     }
     next(err);
   }
-
+  
 }
 
   

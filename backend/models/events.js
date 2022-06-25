@@ -46,7 +46,7 @@ module.exports = class Events {
     return db.execute('UPDATE events SET start = ? , end = ? WHERE id =?', [start, end, id])
   }
 
-  static deleteEvent(title){
-    return db.execute('DELETE FROM events WHERE title=?;', title)
+  static deleteEvent(idEvent){
+    return db.execute('DELETE FROM events WHERE id=?;', [idEvent])
   }
 };

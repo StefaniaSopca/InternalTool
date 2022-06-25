@@ -14,9 +14,18 @@
 
 .roomBtn
 {
+
   border-radius: 50%;
   height: 250px;
   width: 250px;
-  background-color: rgb(135, 160, 189);
+  background-color: #a4afab;
   font-size: 15px;
+  animation: fadeIn 4s;
+  font-size: 20px;
+
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

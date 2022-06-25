@@ -7,12 +7,17 @@ mat-form-field {
 
 .formSignup{
   margin-top: 30px;
-  margin-left: 400px;
-  margin-right: 400px;
- 
+
+  margin-left: calc(20% - 20px);
+  margin-right: calc(20% - 20px);
+
 }
 
-.formSignup button{
-  margin-top: 10px;
-  margin-left: 340px;
+.signupButton{
+  margin-left: calc(46% - 4px);
+  background-color:#a4afab;
+  border-radius: 25px;
+}
+.signupButton:hover{
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }

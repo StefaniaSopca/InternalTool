@@ -6,6 +6,7 @@ import { CalendarOptions, DateSelectArg, EventClickArg, EventApi,EventInput, Cal
 import { EventService } from 'src/app/services/events.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { throwError } from 'rxjs';
+import { compileInjectable } from '@angular/compiler';
 @Component({
   selector: 'app-scheduler',
 
@@ -15,8 +16,10 @@ import { throwError } from 'rxjs';
 export class SchedulerComponent implements OnInit {
   private url = "http://localhost:3000";
 
+  count = 0;
   email_user: string = "";
   created: any = 0;
+  idEvent : any =0;
   urlEvents = `http://localhost:3000/auth/getEvents/`
   calendarVisible = true;
   calendarOptions: CalendarOptions = {
@@ -61,8 +64,6 @@ export class SchedulerComponent implements OnInit {
    httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE',
-
       })};
 
 
@@ -79,6 +80,14 @@ export class SchedulerComponent implements OnInit {
   }
 
   constructor(private http: HttpClient, private eventService: EventService, private tokenStorage: TokenStorageService) {}
+
+
+
+  myFunction(){
+    this.count ++;
+  }
+
+
 
   handleCalendarToggle() {
     this.calendarOptions ={
@@ -144,7 +153,7 @@ export class SchedulerComponent implements OnInit {
         },
         eventColor: '#cc8800'
         ,
-    weekends: true,
+    weekends: false,
     editable: true,
     selectable: true,
     selectMirror: true,
@@ -153,7 +162,7 @@ export class SchedulerComponent implements OnInit {
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     eventDrop: this.handleEventDragDrop.bind(this)
-    /* you can update a remote database when these fire:
+    /*
     eventAdd:
     eventChange:
     eventRemove:
@@ -169,7 +178,7 @@ export class SchedulerComponent implements OnInit {
       dropInfo.revert();
     }
     else{
-      console.log(dropInfo.event.startStr)
+      console.log(dropInfo.oldEvent.end)
       this.http.post(`${this.url}/auth/updateEvent`, dropInfo).subscribe((resp:any) => { console.log(resp)});
     }
   }
@@ -184,21 +193,22 @@ export class SchedulerComponent implements OnInit {
     calendarApi.unselect(); // clear date selection
     var start = selectInfo.startStr
     var end = selectInfo.endStr
+
     if (title) {
+
+
+      var email = this.tokenStorage.getEmail()
+      this.http.post(`http://localhost:3000/auth/scheduler`, {email, title,  start, end })
+      .subscribe( id => { this.idEvent = id; console.log("id bun din bbaza de date", id);
       calendarApi.addEvent({
-        id: createEventId(),
+        id: this.idEvent,
         title,
         start: selectInfo.startStr,
         allDay: true
-      });
-      console.log("add")
-      this.created ++;
-      this.eventService.setCreated(this.created);
-      //add to database
-      var email = this.tokenStorage.getEmail()
-      this.http.post(`http://localhost:3000/auth/scheduler`, {email, title,  start, end })
-      .subscribe( msg => {console.log(msg)})
-     // this.currentEvents.push({id: '1', title: title, start: selectInfo.start, end: selectInfo.end})
+      }); })
+
+     // this.created ++;
+      //this.eventService.setCreated(this.created);
     }
   }
 
@@ -207,15 +217,15 @@ export class SchedulerComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    console.log("handleClink")
+    console.log("handleClink ", clickInfo.event.id)
+
     //this.http.get(`${this.url}/auth/getEvents`).subscribe((resp:any) => {console.log(resp.start), this.currentEvents.push(resp)});
     console.log("here", this.currentEvents)
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}' start '${clickInfo.event.start}'`)) {
       clickInfo.event.remove();
-      this.created --;
-      this.eventService.setCreated(this.created);
-      var c = clickInfo.event.title;
-      this.http.delete(`${this.url}/auth/deleteEvent/${clickInfo.event.title}`,  this.httpOptions).subscribe(() => console.log("executed"))
+      //this.created --;
+     // this.eventService.setCreated(this.created);
+      this.http.delete(`${this.url}/auth/deleteEvent`, {params:{id:  clickInfo.event.id}}).subscribe(() => console.log("executed"))
     }
   }
 

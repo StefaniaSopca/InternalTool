@@ -1,8 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="mat-primary">
   <mat-toolbar-row>
 
     <button mat-button  (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
-    <h4>APP</h4>
+    <h4><div class="nameD">Task NOW</div></h4>
     <!-- <mat-button><a routerLink="/signup" style="text-decoration: none;">Sign up</a></mat-button> -->
     <div class="d-flex justify-content-end"  *ngIf="!gets()">
       <button mat-button routerLink="/signup" class="signupButton"><mat-icon>signup</mat-icon>Sign up</button>
@@ -10,19 +10,19 @@
     </div>
 
     <div class="d-flex justify-content-end"  *ngIf="gets()">
-      <button mat-button (click)="logout()" class="signupButton"><mat-icon>logout</mat-icon>LogOut</button>
-      <button mat-button  routerLink="/profile" class="signupButton"><mat-icon>profile</mat-icon>{{username}}</button>
+      <button mat-button (click)="logout()" class="logoutButton"><mat-icon>logout</mat-icon>LogOut</button>
+      <button mat-button  routerLink="/profile" class="profileButton"><mat-icon>person</mat-icon>{{username}}</button>
     </div>
 
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav [(opened)]="opened" mode="side">
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav [(opened)]="opened" mode="side" style="transition: 0.4s all">
     <mat-list *ngIf="gets()">
-      <mat-list-item  (click)="gets()"><a routerLink="/home" style="text-decoration: none;">Home</a></mat-list-item>
-      <mat-list-item  (click)="gets()"><a routerLink="/posts" style="text-decoration: none;">Posts</a></mat-list-item>
-      <mat-list-item  (click)="gets()"><a routerLink="/scheduler" style="text-decoration: none;">Scheduler</a></mat-list-item>
-      <mat-list-item  (click)="addUsers(username)"><a routerLink="/chat" style="text-decoration: none;">Chat</a></mat-list-item>
+      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/home" >Home</a></mat-list-item>
+      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/posts" >Posts</a></mat-list-item>
+      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/scheduler" >Scheduler</a></mat-list-item>
+      <mat-list-item  (click)="addUsers(username)" class="meniuButton"><a routerLink="/chat" >Chat</a></mat-list-item>
       <!--  -->
 
     </mat-list>

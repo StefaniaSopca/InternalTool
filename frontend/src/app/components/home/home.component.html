@@ -1,5 +1,5 @@
-<div class='demo-app-sidebar-section' *ngIf="created">
-  <h2>All Events ({{created[0]["no"]}})</h2>
+<div class='home-info' *ngIf="created">
+  <h2>Welcome back, {{user}}. <br> You have {{created[0]["no"]}} task on calendar.</h2>
    <!-- <ul>
      <li *ngFor='let event of currentEvents'>
        <b>{{event.startStr}}</b>

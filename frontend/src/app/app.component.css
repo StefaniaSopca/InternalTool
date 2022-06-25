@@ -10,10 +10,15 @@ mat-sidenav-container
 
 mat-sidenav{
   width: 200px;
-  background-color: #eee;
+  background-color: #ffffff;
 }
 
-/* .signupButton{
+.mat-toolbar.mat-primary {
+  background: #1e5c40;
+  color: #fff;
+}
+
+.signupButton{
   text-decoration: none;
   position: absolute;
   right: 100px;
@@ -26,4 +31,64 @@ mat-sidenav{
   margin-left: 120;
   right: 5px;
 
-} */
+}
+
+.profileButton{
+  text-decoration: none;
+  position: absolute;
+  margin-right: 20px;
+  left: calc(83% - 20px);
+  background: #a4afab;
+  text-align: center;
+  color: #000;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+.meniuButton{
+  background-color: #a4afab;
+  border: none;
+  color: white;
+  border-radius: 25px;
+  margin-bottom: 8px;
+  margin-left: 3px;
+  color: white;
+  text-decoration: none;
+}
+
+.meniuButton:hover{
+  text-decoration: none;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.logoutButton{
+  text-decoration: none;
+  position: absolute;
+  margin-right: 20px;
+  left: calc(92% - 20px);
+  background: #a4afab;
+  text-align: center;
+  color: #000;
+  border-radius: 25px;
+}
+
+.name {
+  margin: 0;
+  padding: 0;
+  background-color: #419871;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;
+}
+
+.nameD {
+  font-size: 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  color: white;
+}

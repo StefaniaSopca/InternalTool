@@ -16,7 +16,7 @@ export class RoomService {
 
   currentRoomNo: number = 0;
   constructor( private http: HttpClient, private router: Router) {
-    this.socket = io(this.url);
+    //this.socket = io(this.url);
    }
 
   // rooms(email: string): Observable<any>{

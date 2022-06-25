@@ -6,8 +6,8 @@ const { body } = require('express-validator');
 const router = express.Router();
 
 const User = require('../models/user');
-var cors = require('cors'); 
-router.use(cors());
+// var cors = require('cors'); 
+// router.use(cors());
 const authController = require('../controllers/auth');
 const indexController = require('../index');
 router.post(
@@ -30,6 +30,7 @@ router.post(
 );
 
 
+
 router.post('/login', authController.login);
 
 router.post('/createRoom', authController.createRoom);
@@ -38,15 +39,15 @@ router.post('/createRoom', authController.createRoom);
 
 router.post('/joinRoom', authController.joinRoom);
 
-router.post('/addUsers', authController.addUsers);
+// router.post('/addUsers', authController.addUsers);
 
 router.post('/scheduler', authController.events);
 router.get('/getEvents', authController.getEvents);
 router.get('/getAllEvents', authController.getAllEvents);
 router.post('/updateEvent', authController.updateEvent);
 router.get('/getNoEvents', authController.noEvents);
-router.options('/deleteEvent', cors()) 
-router.delete('/deleteEvent/:title', authController.deleteEvent);
+
+router.delete('/deleteEvent', authController.deleteEvent);
 //router.get('/selectEvent', authController.selectEvent);
 module.exports = router;
 
