@@ -11,8 +11,8 @@ import { OldRoomComponent } from './components/old-room/old-room.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatComponent } from './components/chat/chat.component';
 
-import { AuthGuardService as AuthGuard
-} from './services/auth-guards.service';
+import { AuthGuardService as AuthGuard} from './services/auth-guards.service';
+import { SchedulerComponent } from './components/scheduler/scheduler.component';
 
 // redirect fara login
 const routes: Routes = [
@@ -25,7 +25,8 @@ const routes: Routes = [
   {path: "chat", component: ChatComponent, canActivate: [AuthGuard] },
   {path: "signup", component: SignupComponent},
   {path: "room", component: RoomComponent,canActivate: [AuthGuard]  },
-  
+  {path: "scheduler", component: SchedulerComponent, canActivate: [AuthGuard]}
+
 ];
 
 @NgModule({

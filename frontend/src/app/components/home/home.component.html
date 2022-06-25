@@ -1,1 +1,9 @@
-<p>Your tasks</p>
+<div class='demo-app-sidebar-section' *ngIf="created">
+  <h2>All Events ({{created[0]["no"]}})</h2>
+   <!-- <ul>
+     <li *ngFor='let event of currentEvents'>
+       <b>{{event.startStr}}</b>
+       <i>{{event.title}}</i>
+     </li>
+   </ul> -->
+ </div>

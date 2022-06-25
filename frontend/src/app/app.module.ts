@@ -31,8 +31,16 @@ import { NewRoomComponent } from './components/new-room/new-room.component';
 import { OldRoomComponent } from './components/old-room/old-room.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ChatComponent } from './components/chat/chat.component';
+//import { ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWeekService, MonthService, MonthAgendaService } from '@syncfusion/ej2-angular-schedule';
+import { SchedulerComponent } from './components/scheduler/scheduler.component'
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
-
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -48,6 +56,7 @@ import { ChatComponent } from './components/chat/chat.component';
     OldRoomComponent,
     ProfileComponent,
     ChatComponent,
+    SchedulerComponent,
 
   ],
   imports: [
@@ -66,7 +75,8 @@ import { ChatComponent } from './components/chat/chat.component';
     MatSliderModule,
     FormsModule,
     NgbModule,
-    JwtModule
+    JwtModule,
+    FullCalendarModule
 
   ],
   providers: [AuthGuardService],

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Room = require('../models/room');
+const Events = require('../models/events');
 
 exports.signup = async (req, res, next) => {
     const errors = validationResult(req);
@@ -66,7 +67,7 @@ exports.login = async (req, res, next) => {
         userId: storedUser.id,
       },
       'secretfortoken',
-      { expiresIn: '60s' }
+      { expiresIn: '200s' }
     );
     res.status(200).json({token:token, username: storedUser.name, email: storedUser.email });
     
@@ -110,6 +111,7 @@ exports.createRoom = async (req, res, next) => {
     next(err);
   }
 }
+
 
   // exports.joinRoom = async (req, res, next) => {
   //   const email = req.body.email;
@@ -225,4 +227,166 @@ exports.addUsers = async (req, res, next) => {
   next(err);
   }
 }
+
+exports.getAllEvents = async (req, res, next) => {
+
+  try{
+    const events = await Events.selectAllButton();
+
+    const listOfEvents = events[0];
+    const arr= new Array(listOfEvents.length)
+
+    console.log(listOfEvents[0])
+    if(arr.length == 0)
+      res.status(201).json({listOfEvents: 0})
+    else 
+    {  console.log("it s fine")
+    
+      res.status(201).json(  listOfEvents)}
+  }
+  catch(err)
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+  next(err);
+  }
+  }
+
+exports.events = async (req, res, next) => {
+  const email = req.body.email
+  console.log("add ",email);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) 
+  { 
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try
+  {
+    const event = 
+    {     
+        title:  req.body.title,
+        start:  req.body.start,
+        end:  req.body.end,
+        allDay:  req.body.allDay
+    };
+
+    const result = await Events.save(email, event);
+
+    res.status(201).json({ message: 'Event in database!' });  
+  }
+  catch (err) 
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+ 
+}
+
+exports.getEvents = async (req, res, next) => {
+  
+  const email = req.query.email;
+  console.log("extra params: ",email);
+  try{
+    const events = await Events.select(email);
+
+    const listOfEvents = events[0];
+    const arr= new Array(listOfEvents.length)
+
+    console.log(listOfEvents[0])
+    if(arr.length == 0)
+      res.status(201).json({listOfEvents: 0})
+    else 
+    {  console.log("it s fine")
+    
+      res.status(201).json(  listOfEvents)}
+  }
+  catch(err)
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+  next(err);
+  }
+  }
+
+
+exports.updateEvent = async (req, res, next) => {
+  const newstart = req.body.event.start;
+  const newend = req.body.event.end;
+  const oldstart = req.body.oldEvent.start;
+  const oldend = req.body.oldEvent.end;
+  console.log(newstart, newend);
+  console.log(oldstart, oldend);
+  try{
+    const id = await Events.selectId(req.body.oldEvent)
+    console.log("id event: " + id[0][0].id);
+
+    const updated = await Events.updateEvent(id[0][0].id, newstart, newend);
+    res.status(201).json({ message: 'Event updated!' });  
+  }
+  catch (err) 
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+
+}
+
+exports.noEvents = async (req, res, next) => {
+  const email = req.query.email;
+  console.log("email : ", email);
+  try{
+    const id = await Events.selectAll(email)
+    console.log("all: " + id[0]);
+
+   
+    res.status(201).json( id[0]);  
+  }
+  catch (err) 
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+
+}
+
+exports.deleteEvent = async (req, res, next) => {
+  const title = req.body.title
+  console.log(title)
+  try{
+    const id = await Events.deleteEvent(title)
+    console.log("delete: " + id);
+
+   
+    res.status(201).json({ message: "delete ok"});  
+  }
+  catch (err) 
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+
+}
+
   
