@@ -13,6 +13,7 @@ import { ChatComponent } from './components/chat/chat.component';
 
 import { AuthGuardService as AuthGuard} from './services/auth-guards.service';
 import { SchedulerComponent } from './components/scheduler/scheduler.component';
+import { PendingComponent } from './components/pending/pending.component';
 
 // redirect fara login
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
   {path: "chat", component: ChatComponent, canActivate: [AuthGuard] },
   {path: "signup", component: SignupComponent},
   {path: "room", component: RoomComponent,canActivate: [AuthGuard]  },
-  {path: "scheduler", component: SchedulerComponent, canActivate: [AuthGuard]}
+  {path: "scheduler", component: SchedulerComponent, canActivate: [AuthGuard]},
+  {path: "pending", component: PendingComponent, canActivate: [AuthGuard]}
 
 ];
 

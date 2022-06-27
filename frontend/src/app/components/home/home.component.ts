@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     console.log("Email front: ", email, roomNo);
     this.homeService.noEvents(email, roomNo)
       .subscribe(data => { this.created = data; console.log("numero:", this.created[0]["no"]);});
+    
   }
 
 

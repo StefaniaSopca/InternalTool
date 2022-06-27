@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthGuardService } from './services/auth-guards.service';
 import { ChatService } from './services/chat.service';
+import { HomeService } from './services/home.service';
+import { RoomService } from './services/room.service';
 import { ShowMenuService } from './services/show-menu.service';
 import { TokenStorageService } from './services/token-storage.service';
 
@@ -12,7 +14,7 @@ import { TokenStorageService } from './services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private authGuards:AuthGuardService, private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService, private router: Router) {
+  constructor(private roomService: RoomService, private homeService: HomeService, private authGuards:AuthGuardService, private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService, private router: Router) {
     // this.chatService.getMessage().subscribe((data: {user:string, message:string}) => {
     //   this.messageArray.push(data);
     // })
@@ -21,7 +23,9 @@ export class AppComponent {
   //isLoggedIn = false;
   username!: string;
   addUsersFlag!: string;
-  roomNo!: number;
+  roomNo!: string;
+  isAdminBool!: boolean;
+  auxialiarFlag!: any;
   //username2 = this.tokenStorageService.getUser();
   // public roomId!: string;
   // public messageText!: string;
@@ -59,6 +63,8 @@ export class AppComponent {
     //this.displayedMenu = false;
     console.log('get : ', this.displayedMenu);
     if(this.gets()){
+      console.log('init', this.tokenStorageService.getEmail(), this.roomService.getCurrentRoomNo() )
+     this.homeService.isAdmin(this.tokenStorageService.getEmail(), this.roomService.getCurrentRoomNo() ).subscribe(data =>{this.auxialiarFlag = data as boolean, this.homeService.setIsAdminValue(this.auxialiarFlag.ok)})
       this.username = this.tokenStorageService.getUser();
       console.log("here", this.username);
       this.addUsersFlag ='Am apasat, se adauga users init';
@@ -79,6 +85,11 @@ export class AppComponent {
     if( user != null)
       return true;
     else { return false;}
+  }
+
+  isAdmin(){
+    console.log("admin in app ", this.homeService.getIsAdminValue())
+    return this.homeService.getIsAdminValue()
   }
 
   logout(): void

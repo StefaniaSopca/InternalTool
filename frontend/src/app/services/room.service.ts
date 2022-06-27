@@ -14,7 +14,7 @@ export class RoomService {
 
   listRooms = new Subject<string>();
 
-  currentRoomNo: number = 0;
+  currentRoomNo: string = "";
   constructor( private http: HttpClient, private router: Router) {
     //this.socket = io(this.url);
    }
@@ -23,17 +23,17 @@ export class RoomService {
   //   return this.http.post(`${this.url}/auth/joinRoom`, {email})
   // }
 
-  saveRoomNo(roomNo: number): void{
+  saveRoomNo(roomNo: string): void{
     console.log("save room no: ", roomNo);
     this.currentRoomNo = roomNo;
     this.router.navigate(['/home']);
   }
 
-  getCurrentRoomNo(): number{
-    console.log("save room no: ", this.currentRoomNo);
+  getCurrentRoomNo(): string{
+    console.log("get room no: ", this.currentRoomNo);
     return this.currentRoomNo;}
 
-  createRoom(email: string, roomNo: number): Observable<any>{
+  createRoom(email: string, roomNo: string): Observable<any>{
     console.log("create room service", email, roomNo);
 
     return this.http.post<number>(`${this.url}/auth/createRoom`, {email, roomNo})
@@ -44,6 +44,19 @@ export class RoomService {
     console.log("join room service")
 
     return this.http.post<number>(`${this.url}/auth/joinRoom`, {email})
+  }
+
+  findRoom(roomNo: string){
+    return this.http.get(`${this.url}/auth/findRoom`, {params:{roomNo:roomNo}})
+  }
+
+  saveAdmin(email: string, roomNo: string){
+    console.log("save admin params: ", email, roomNo)
+    return this.http.post(`${this.url}/auth/saveAdmin`, {email, roomNo})
+  }
+
+  findRoomUser(email: string, roomNo: string){
+    return this.http.post(`${this.url}/auth/findRoomUser`, {email, roomNo})
   }
 
 }

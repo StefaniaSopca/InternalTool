@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const Room = require('../models/room');
 const Events = require('../models/events');
+const Admin = require('../models/admin');
 
 exports.signup = async (req, res, next) => {
     const errors = validationResult(req);
@@ -359,6 +360,7 @@ exports.updateEvent = async (req, res, next) => {
 
 const url = require('url');
 const querystring = require('querystring');
+const { isNullOrUndefined } = require('util');
 
 exports.noEvents = async (req, res, next) => {
   const query = url.parse(req.url, true).query;
@@ -407,4 +409,109 @@ exports.deleteEvent = async (req, res, next) => {
   
 }
 
+
+
+exports.findRoom = async (req, res, next) => {
+
+  const query = url.parse(req.url, true).query;
+  const roomNo = query.roomNo;
+  console.log("findRoom : ", roomNo);
+
+  try{
+
+    const result = await Room.findRoom(roomNo)
+    console.log(result);
+    if (result[0].length !== 0)
+    {
+      console.log("exista camera")
+      res.status(201).json({ok: true})
+    }
+    else{
+      console.log("totul ok")
+      res.status(201).json({ok: false})
+  }    
+  }
+  catch (err){
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+}
+
+exports.saveAdmin = async (req, res, next) => {
+
+  // const query = url.parse(req.url, true).query;
+  // console.log("parsedQs : ", query.roomNo);
+  // const roomNo = query.roomNo;
+  console.log("saveAdmin!!! : ", req.body.roomNo, req.body.email);
+
+  try{
+
+    const result = await Admin.saveAdmin(req.body.email, req.body.roomNo)
+    
+    res.status(201).json({message: "admin saved"})
+      
+  }
+  catch (err){
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+}
+
+
+exports.findRoomUser = async (req, res, next) => {
+  console.log("findRoomUser ", req.body.roomNo, req.body.email)
+  try{
+    const result = await Room.findRoomUser(req.body.email, req.body.roomNo)
+    console.log("result findRoomUser ", result[0])
+    if(result[0] !== 0)
+      res.status(201).json({ok : true})
+    else 
+    {
+      res.status(201).json({ok : false})
+    }
+  }
+  catch (err){
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+}
+
+exports.findAdmin = async (req, res, next) => {
+  const query = url.parse(req.url, true).query;
   
+  const email = query.email;
+  const roomNo = query.roomNo;
+  console.log("findAdmin : ", email,  roomNo);
+  try{
+    const result = await Admin.findAdmin(email, roomNo)
+    console.log("result findAdmin ", result[0])
+    if(result[0].length !== 0) //exista admin
+    {console.log("exista admin")
+      res.status(201).json({ok : true})}
+    else 
+    {console.log("nu exista admin")
+      //nu e admin
+      res.status(201).json({ok : false})
+    }
+  }
+  catch (err){
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+}

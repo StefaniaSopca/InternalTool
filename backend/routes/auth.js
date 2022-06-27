@@ -48,6 +48,11 @@ router.post('/updateEvent', authController.updateEvent);
 router.get('/getNoEvents', authController.noEvents);
 
 router.delete('/deleteEvent', authController.deleteEvent);
+
+router.get('/findRoom', authController.findRoom);
+router.post('/saveAdmin', authController.saveAdmin);
+router.get('/findRoomUser', authController.findRoomUser);
+router.get('/findAdmin', authController.findAdmin);
 //router.get('/selectEvent', authController.selectEvent);
 module.exports = router;
 

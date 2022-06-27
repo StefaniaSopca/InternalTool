@@ -25,7 +25,7 @@ export class SchedulerService {
     return this.http.delete(`${this.url}/auth/deleteEvent`, {params:{id: clickInfo.event.id}});
   }
 
-  saveEvent(email: string, title: string, start:string, end: string, roomNo: number)
+  saveEvent(email: string, title: string, start:string, end: string, roomNo: string)
   {
     return this.http.post(`http://localhost:3000/auth/scheduler`, {email, title,  start, end, roomNo })
   }

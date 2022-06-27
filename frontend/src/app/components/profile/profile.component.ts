@@ -11,7 +11,7 @@ export class ProfileComponent implements OnInit {
 
   currentUser: any;
   currentToken : any;
-  roomNo: number =0;
+  roomNo: string ="";
   constructor(private token: TokenStorageService, private roomService: RoomService) { }
 
   ngOnInit(): void {

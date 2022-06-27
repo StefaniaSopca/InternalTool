@@ -19,7 +19,8 @@ export class NewRoomComponent implements OnInit {
   displayedMenu = false;
   clicked=false;
   _email!: string;
-  _roomNo = 0;
+  _roomNo = "";
+  _flagRoom :any;
 
   constructor(private _tokenService: TokenStorageService,private _roomService: RoomService, private _showMenu: ShowMenuService, private _router: Router) { }
 
@@ -61,8 +62,18 @@ export class NewRoomComponent implements OnInit {
 
   newRoomEnter(){
     console.log("new room entered: ", this.roomEntered.value.newRoom)
-    this._roomService.saveRoomNo(this.roomEntered.value.newRoom);
-    this._roomService.createRoom(this._tokenService.getEmail(), this.roomEntered.value.newRoom).subscribe();
+    this._roomService.findRoom(this.roomEntered.value.newRoom)
+      .subscribe(data=> {this._flagRoom = data; console.log("data", this._flagRoom.ok);
+        if( this._flagRoom.ok == false) {
+          console.log("data 1")
+        this._roomService.saveRoomNo(this.roomEntered.value.newRoom);
+        this._roomService.createRoom(this._tokenService.getEmail(), this.roomEntered.value.newRoom).subscribe();
+        this._roomService.saveAdmin(this._tokenService.getEmail(), this.roomEntered.value.newRoom).subscribe(data=>{console.log(data)});
+    }
+    else{
+      alert("The name is already used.")
+    }})
+
   }
 
 }

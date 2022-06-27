@@ -35,7 +35,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { SchedulerComponent } from './components/scheduler/scheduler.component'
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction';
+import { PendingComponent } from './components/pending/pending.component'; // a plugin!
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -57,6 +58,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ProfileComponent,
     ChatComponent,
     SchedulerComponent,
+    PendingComponent,
 
   ],
   imports: [

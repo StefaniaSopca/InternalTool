@@ -23,7 +23,7 @@ export class SchedulerComponent implements OnInit {
   email_user: string = "";
   created: any = 0;
   idEvent : any =0;
-  urlEvents = `http://localhost:3000/auth/getEvents/`
+  //urlEvents = `http://localhost:3000/auth/getEvents/`
   calendarVisible = true;
   calendarOptions: CalendarOptions = {
     headerToolbar: {
@@ -48,7 +48,7 @@ export class SchedulerComponent implements OnInit {
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this),
+    //eventsSet: this.handleEvents.bind(this),
     eventDrop: this.handleEventDragDrop.bind(this)
     /*
     eventAdd:
@@ -77,38 +77,38 @@ export class SchedulerComponent implements OnInit {
   }
 
   //DE VERIFCAT
-  handleCalendarToggle() {
-    this.calendarOptions ={
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-      },
-      initialView: 'dayGridMonth',
-      eventSources:[
-        {url: `http://localhost:3000/auth/getAllEvents`, method: 'GET', extraParams: { email: this.tokenStorage.getEmail(), roomNo: this.roomService.getCurrentRoomNo()}}],
-      eventTimeFormat: {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        meridiem: false
-      },
-      weekends: true,
-      editable: true,
-      selectable: true,
-      selectMirror: true,
-      dayMaxEvents: true,
-      select: this.handleDateSelect.bind(this),
-      eventClick: this.handleEventClick.bind(this),
-      eventsSet: this.handleEvents.bind(this),
-      eventDrop: this.handleEventDragDrop.bind(this)
-      /*
-      eventAdd:
-      eventChange:
-      eventRemove:
-      */
-    };
-  }
+  // handleCalendarToggle() {
+  //   this.calendarOptions ={
+  //     headerToolbar: {
+  //       left: 'prev,next today',
+  //       center: 'title',
+  //       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+  //     },
+  //     initialView: 'dayGridMonth',
+  //     eventSources:[
+  //       {url: `http://localhost:3000/auth/getAllEvents`, method: 'GET', extraParams: { email: this.tokenStorage.getEmail(), roomNo: this.roomService.getCurrentRoomNo()}}],
+  //     eventTimeFormat: {
+  //       hour: '2-digit',
+  //       minute: '2-digit',
+  //       second: '2-digit',
+  //       meridiem: false
+  //     },
+  //     weekends: true,
+  //     editable: true,
+  //     selectable: true,
+  //     selectMirror: true,
+  //     dayMaxEvents: true,
+  //     select: this.handleDateSelect.bind(this),
+  //     eventClick: this.handleEventClick.bind(this),
+  //     eventsSet: this.handleEvents.bind(this),
+  //     eventDrop: this.handleEventDragDrop.bind(this)
+  //     /*
+  //     eventAdd:
+  //     eventChange:
+  //     eventRemove:
+  //     */
+  //   };
+  // }
 
   handleWeekendsToggle() {
     const { calendarOptions } = this;
@@ -117,38 +117,38 @@ export class SchedulerComponent implements OnInit {
 
   handleAllTasks() {
 
-    this.calendarOptions ={
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-      },
-      initialView: 'dayGridMonth',
-      eventSources:[
-        {url: `http://localhost:3000/auth/getAllEvents`, method: 'GET'}],
+    // this.calendarOptions ={
+    // headerToolbar: {
+    //     left: 'prev,next today',
+    //     center: 'title',
+    //     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    //   },
+    //   initialView: 'dayGridMonth',
+    //   eventSources:[
+    //     {url: `http://localhost:3000/auth/getAllEvents`, method: 'GET'}],
 
-      eventTimeFormat: { // like '14:30:00'
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        meridiem: false
-      },
-      eventColor: '#cc8800',
-      weekends: false,
-      editable: true,
-      selectable: true,
-      selectMirror: true,
-      dayMaxEvents: true,
-      select: this.handleDateSelect.bind(this),
-      eventClick: this.handleEventClick.bind(this),
-      eventsSet: this.handleEvents.bind(this),
-      eventDrop: this.handleEventDragDrop.bind(this)
-      /*
-      eventAdd:
-      eventChange:
-      eventRemove:
-      */
-    };
+    //   eventTimeFormat: { // like '14:30:00'
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit',
+    //     meridiem: false
+    //   },
+    //   eventColor: '#cc8800',
+    //   weekends: false,
+    //   editable: true,
+    //   selectable: true,
+    //   selectMirror: true,
+    //   dayMaxEvents: true,
+    //   select: this.handleDateSelect.bind(this),
+    //   eventClick: this.handleEventClick.bind(this),
+    //   eventsSet: this.handleEvents.bind(this),
+    //   eventDrop: this.handleEventDragDrop.bind(this)
+    //   /*
+    //   eventAdd:
+    //   eventChange:
+    //   eventRemove:
+    //   */
+    // };
   }
 
   handleEventDragDrop(dropInfo: EventDropArg){

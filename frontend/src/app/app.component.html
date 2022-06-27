@@ -24,7 +24,7 @@
       <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/scheduler" style="text-decoration: none;color: #000">Scheduler</a></mat-list-item>
      <!-- <mat-list-item  (click)="addUsers(username)" class="meniuButton"><a routerLink="/chat" >Chat</a></mat-list-item> -->
       <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/room" style="text-decoration: none;color: #000">Switch room</a></mat-list-item>
-      <!--  -->
+      <mat-list-item  *ngIf = "isAdmin()" class="meniuButton"><a routerLink="/pending" style="text-decoration: none;color: #000">Pending</a></mat-list-item>
 
     </mat-list>
   </mat-sidenav>

@@ -11,8 +11,11 @@ module.exports = class Room {
     return db.execute('SELECT * FROM rooms WHERE email = ?', [email]);
   }
 
-  static find(roomNo) {
+  static findRoom(roomNo) {
     return db.execute('SELECT * FROM rooms WHERE roomNo = ?', [roomNo]);
+  }
+  static findRoomUser( roomNo, email) {
+    return db.execute('SELECT * FROM rooms WHERE roomNo = ? AND id_user = (SELECT id FROM users WHERE email = ?)', [roomNo, email]);
   }
 
   static findAllRooms(email) {
