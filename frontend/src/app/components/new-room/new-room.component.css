@@ -1,0 +1,14 @@
+.buttons {
+  width: 200px;
+  margin: 0 auto;
+  display: inline;}
+
+
+.buttonBAck{
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background-color:#a4afab;
+  margin: 6px;
+}

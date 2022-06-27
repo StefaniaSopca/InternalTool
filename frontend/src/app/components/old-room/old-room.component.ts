@@ -15,38 +15,40 @@ import { ShowMenuService } from 'src/app/services/show-menu.service';
 })
 export class OldRoomComponent implements OnInit {
   roomForm!: FormGroup;
-  displayedMenu = false;
-  constructor(private roomService: RoomService, chatService: ChatService,private authService: AuthService, private showMenu: ShowMenuService, private router: Router) { }
-  clicked=false;
+  roomEntered!: FormGroup;
   email!: string;
   subscription!: Subscription;
-  socket: any;
   listRooms: any=[];
-  r = 0;
+  flagRooms: boolean = false;
+  newRoom: number = 0;
+  constructor(private roomService: RoomService, chatService: ChatService,private authService: AuthService, private showMenu: ShowMenuService, private router: Router) { }
+
   ngOnInit(): void {
     this.email = sessionStorage.getItem('auth-email')!;
-    this.subscription= this.authService.joinRoom(this.email)
+
+    this.subscription= this.roomService.joinRoom(this.email)
     .pipe(tap(arr => console.log(arr)))
     .subscribe (async arr =>{
       if(arr.arr == 0)
       {
+        this.flagRooms = true; //nicio camera
         console.log("nada")
         setTimeout(() => {
-
-          this.router.navigate(['/home']);
+          this.router.navigate(['/new-room']);
       }, 5000);
       }
       else
-        { this.listRooms.push(...arr.arr);}}
+        { this.flagRooms = false;
+          this.listRooms.push(...arr.arr);}}
       )
     this.roomForm = this.createFormGroup();
+    this.roomEntered = this.createFormGroup();
   }
-
 
   createFormGroup() : FormGroup
   {
     return new FormGroup({
-      roomCode: new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+      newRoom: new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     });
   }
 
@@ -56,14 +58,14 @@ export class OldRoomComponent implements OnInit {
     this.roomService.saveRoomNo(roomNo);
   }
 
-  // joinYourTeam(){
-  //   this.showMenu.setDisplayedMenu(true);
-  //   console.log("old room " + this.roomForm.get('roomCode')?.value);
-  //   this.r = this.roomForm.get('roomCode')?.value;
-  //   this.email = sessionStorage.getItem('auth-email')!;
-  //   this.authService.joinRoom(this.email, this.r).subscribe((msg: any)=>{this.router.navigate(['/home']), console.log(msg)})
-  //   this.chatService.setRoom(this.r);
+  // goBack(){
+  //   this.router.navigate(['/room'])
   // }
 
 
+  // newRoomEnter(){
+  //   console.log("new room entered: ", this.roomEntered.value.newRoom)
+  //   this.roomService.saveRoomNo(this.roomEntered.value.newRoom);
+  //   this.roomService.createRoom(this.email, this.roomEntered.value.newRoom).subscribe();
+  // }
 }

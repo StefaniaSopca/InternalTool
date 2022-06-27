@@ -23,13 +23,12 @@ export class SignupComponent implements OnInit {
 
 
   createFormGroup() : FormGroup
-    {
-      return new FormGroup({
-        name: new FormControl("", [Validators.required, Validators.minLength(2)]),
-        email: new FormControl("", [Validators.required, Validators.email]),
-        password: new FormControl("", [Validators.required, Validators.minLength(7)])
-      });
-
+  {
+    return new FormGroup({
+      name: new FormControl("", [Validators.required, Validators.minLength(2)]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required, Validators.minLength(7)])
+    });
   }
 
   signup():void{
@@ -40,11 +39,6 @@ export class SignupComponent implements OnInit {
        { this.router.navigate(['/login']),
         console.log(msg)}
       )
-
-
-  };
-}
-function msg(msg: any) {
-  throw new Error('Function not implemented.');
-}
+    };
+  }
 

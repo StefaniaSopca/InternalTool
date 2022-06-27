@@ -9,7 +9,7 @@ import { io, Socket } from 'socket.io-client';
 })
 
 export class RoomService {
-  private socket: Socket;
+  //private socket: Socket;
   private url='http://localhost:3000';
 
   listRooms = new Subject<string>();
@@ -24,11 +24,26 @@ export class RoomService {
   // }
 
   saveRoomNo(roomNo: number): void{
+    console.log("save room no: ", roomNo);
     this.currentRoomNo = roomNo;
     this.router.navigate(['/home']);
   }
 
-  getCurrentRoomNo(): number{return this.currentRoomNo;}
+  getCurrentRoomNo(): number{
+    console.log("save room no: ", this.currentRoomNo);
+    return this.currentRoomNo;}
 
+  createRoom(email: string, roomNo: number): Observable<any>{
+    console.log("create room service", email, roomNo);
+
+    return this.http.post<number>(`${this.url}/auth/createRoom`, {email, roomNo})
+  }
+
+
+  joinRoom(email: string): Observable<any>{
+    console.log("join room service")
+
+    return this.http.post<number>(`${this.url}/auth/joinRoom`, {email})
+  }
 
 }

@@ -19,10 +19,11 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav [(opened)]="opened" mode="side" style="transition: 0.4s all">
     <mat-list *ngIf="gets()">
-      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/home" >Home</a></mat-list-item>
-      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/posts" >Posts</a></mat-list-item>
-      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/scheduler" >Scheduler</a></mat-list-item>
-      <mat-list-item  (click)="addUsers(username)" class="meniuButton"><a routerLink="/chat" >Chat</a></mat-list-item>
+      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/home" style="text-decoration: none;color: #000">Home</a></mat-list-item>
+      <!-- <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/posts" >Posts</a></mat-list-item> -->
+      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/scheduler" style="text-decoration: none;color: #000">Scheduler</a></mat-list-item>
+     <!-- <mat-list-item  (click)="addUsers(username)" class="meniuButton"><a routerLink="/chat" >Chat</a></mat-list-item> -->
+      <mat-list-item  (click)="gets()" class="meniuButton"><a routerLink="/room" style="text-decoration: none;color: #000">Switch room</a></mat-list-item>
       <!--  -->
 
     </mat-list>

@@ -12,9 +12,25 @@
   left: 50%;
 }
 
-.roomBtn
+.roomBtn1
 {
 
+  position: fixed;
+  left: 32%;
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  background-color: #a4afab;
+  font-size: 15px;
+  animation: fadeIn 4s;
+  font-size: 20px;
+
+}
+.roomBtn2
+{
+
+  position: fixed;
+  left: 50%;
   border-radius: 50%;
   height: 250px;
   width: 250px;

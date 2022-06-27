@@ -83,7 +83,7 @@ exports.createRoom = async (req, res, next) => {
   const email = req.body.email;
   const roomNo = req.body.roomNo;
 
-  console.log(email,roomNo);
+  console.log("email, room",email,roomNo);
   const errors = validationResult(req);
   if (!errors.isEmpty()) 
   { 
@@ -257,6 +257,7 @@ exports.getAllEvents = async (req, res, next) => {
 
 exports.events = async (req, res, next) => {
   const email = req.body.email
+  const roomNo= req.body.roomNo
   console.log("add ",email);
   const errors = validationResult(req);
   if (!errors.isEmpty()) 
@@ -270,10 +271,10 @@ exports.events = async (req, res, next) => {
         title:  req.body.title,
         start:  req.body.start,
         end:  req.body.end,
-        allDay:  req.body.allDay
+        
     };
 
-    const result = await Events.save(email, event);
+    const result = await Events.save(email, event, roomNo);
     console.log("result",result[0].insertId)
     res.status(201).json(result[0].insertId );  
   }
@@ -302,14 +303,15 @@ exports.optionGPSData = (req, res, next) => {
 exports.getEvents = async (req, res, next) => {
   
   const email = req.query.email;
-  console.log("extra params: ",email);
+  const roomNo = req.query.roomNo
+  console.log("extra params: ",email, roomNo);
   try{
-    const events = await Events.select(email);
-
+    const events = await Events.select(email, roomNo);
+    console.log("no rponlema")
     const listOfEvents = events[0];
     const arr= new Array(listOfEvents.length)
 
-    console.log(listOfEvents[0])
+    //console.log(listOfEvents[0])
     if(arr.length == 0)
       res.status(201).json({listOfEvents: 0})
     else 
@@ -355,11 +357,17 @@ exports.updateEvent = async (req, res, next) => {
 
 }
 
+const url = require('url');
+const querystring = require('querystring');
+
 exports.noEvents = async (req, res, next) => {
+  const query = url.parse(req.url, true).query;
+  console.log("parsedQs : ", query.roomNo);
   const email = req.query.email;
-  console.log("email : ", email);
+  const roomNo = query.roomNo;
+  
   try{
-    const id = await Events.selectAll(email)
+    const id = await Events.selectAll(email, query.roomNo)
     console.log("all: " + id[0]);
 
    

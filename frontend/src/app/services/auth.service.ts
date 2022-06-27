@@ -45,7 +45,6 @@ export class AuthService {
   }
 
   signup(user: Omit<User, "id">): Observable<User>{
-    //console.log("sign up service")
     return this.http.post<User>(`${this.url}/auth/signup`, user, this.httpOptions).pipe(first(), catchError(this.errorHandlerService.handleError<User>("signup")));
   }
 
@@ -54,18 +53,6 @@ export class AuthService {
     console.log("login service")
     return this.http
       .post(`${this.url}/auth/login`, { email, password }, this.httpOptions)
-  }
-
-  createRoom(email: string, roomNo: number): Observable<any>{
-    console.log("create room service")
-
-    return this.http.post<number>(`${this.url}/auth/createRoom`, {email, roomNo}, this.httpOptions)
-  }
-
-  joinRoom(email: string): Observable<any>{
-    console.log("join room service")
-
-    return this.http.post<number>(`${this.url}/auth/joinRoom`, {email}, this.httpOptions)
   }
 
   addUsers(email: string): Observable<string>

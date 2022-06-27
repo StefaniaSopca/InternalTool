@@ -16,6 +16,7 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component';
 
 // redirect fara login
 const routes: Routes = [
+  {path: "", component: LoginComponent, canActivate: [AuthGuard] },
   {path: "home", component: HomeComponent, canActivate: [AuthGuard] },
   {path: "new-room", component: NewRoomComponent, canActivate: [AuthGuard] },
   {path: "old-room", component: OldRoomComponent, canActivate: [AuthGuard] },

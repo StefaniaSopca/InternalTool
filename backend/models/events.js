@@ -12,17 +12,17 @@ module.exports = class Events {
 //     return db.execute('SELECT * FROM users WHERE email = ?', [email]);
 //   }
 
-  static save(email, event) {
+  static save(email, event, roomNo) {
     return db.execute(
-      'INSERT INTO events (id_user, title, start, end) VALUES ((SELECT id FROM users WHERE email =?), ?, ?, ?)',
-      [email, event.title, event.start, event.end]
+      'INSERT INTO events (id_user, title, start, end, id_room) VALUES ((SELECT id FROM users WHERE email =?), ?, ?, ?, (SELECT id FROM rooms WHERE roomNo = ? AND id_user =(SELECT id FROM users WHERE email = ?)));',
+      [email, event.title, event.start, event.end, roomNo, email]
     );
   }
 
-  static select(email) {
+  static select(email, roomNo) {
     
     return db.execute(
-      'SELECT * FROM events WHERE id_user= (SELECT id FROM users WHERE email = ?);', [email]);
+      'SELECT * FROM events WHERE id_user= (SELECT id FROM users WHERE email = ?) AND id_room = (SELECT id FROM rooms WHERE roomNo = ? AND id_user= (SELECT id FROM users WHERE email = ?));', [email, roomNo, email]);
   }
 
   static selectAllButton() {
@@ -36,10 +36,10 @@ module.exports = class Events {
       'SELECT id FROM events WHERE title =? AND start =? AND  end =?', [oldEvent.title, oldEvent.start, oldEvent.end]);
   }
 
-  static selectAll(email) {
+  static selectAll(email, roomNo) {
     
     return db.execute(
-      'SELECT count(*) as no FROM events WHERE id_user = (SELECT id FROM users WHERE email = ?) ;', [email]);
+      'SELECT count(*) as no FROM events WHERE id_user = (SELECT id FROM users WHERE email = ?) AND id_room = (SELECT id FROM rooms WHERE roomNo = ? AND id_user = (SELECT id FROM users WHERE email = ?));', [email, roomNo, email]);
   }
 
   static updateEvent(id, start, end){

@@ -1,12 +1,35 @@
 
-<p class="your-rooms">You have more than one team. <br> <i>Choose one!</i></p>
-<div class="list-rooms">
+
+<div class="list-rooms" *ngIf="!flagRooms">
+  <p  class="your-rooms"> <br> <i>Choose your team!</i></p>
   <mat-list  *ngFor="let roomNo of listRooms">
     <!-- <mat-list-item>{{ user }}</mat-list-item> -->
     <button mat-list-item (click)="myFunc(roomNo)"  class="list-item" > {{ roomNo }} </button>
     </mat-list>
 
+    <!-- <form class="example-form" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
+      <mat-form-field  appearance="fill">
+        <mat-label >Another team</mat-label>
+        <input matInput placeholder="Ex. 2324"  formControlName="newRoom">
+      </mat-form-field>
+      <div class="buttons" >
+      <!-- <a routerLink="/room"><button  color="accent"  class="actionBtn" > Back</button></a> -->
+      <!-- <button color="accent"  mat-raised-button (click)="goBack()" class="buttonBAck">
+        <span>Back</span>
+      </button>
+      <button color="accent"  mat-raised-button type="submit" class="buttonBAck">
+        <span>Go</span>
+      </button>
+    </div>
+    </form> --> -->
+
 </div>
+<div *ngIf="flagRooms">
+<p  class="your-rooms">You have no team. Let me bring you there</p>
+</div>
+
+
+
 <!-- <form [formGroup]="roomForm" (ngSubmit)="joinYourTeam()" novalidate>
 
   <mat-form-field>
