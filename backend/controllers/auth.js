@@ -214,9 +214,9 @@ exports.addUsers = async (req, res, next) => {
       arr[i] = listOfUsers[i].email;
     }
     if(arr.length == 0)
-      res.status(201).json({arr: 0})
+      res.status(201).json( 0)
     else 
-      res.status(201).json({ arr:  arr});
+      res.status(201).json( arr);
   }
   catch(err)
   {
@@ -364,7 +364,7 @@ const { isNullOrUndefined } = require('util');
 
 exports.noEvents = async (req, res, next) => {
   const query = url.parse(req.url, true).query;
-  console.log("parsedQs : ", query.roomNo);
+  console.log("parsedQs : ", query.roomNo.toString());
   const email = req.query.email;
   const roomNo = query.roomNo;
   
@@ -420,7 +420,7 @@ exports.findRoom = async (req, res, next) => {
   try{
 
     const result = await Room.findRoom(roomNo)
-    console.log(result);
+    //console.log(result);
     if (result[0].length !== 0)
     {
       console.log("exista camera")
@@ -471,10 +471,13 @@ exports.findRoomUser = async (req, res, next) => {
   try{
     const result = await Room.findRoomUser(req.body.email, req.body.roomNo)
     console.log("result findRoomUser ", result[0])
-    if(result[0] !== 0)
+    if(result[0].length !== 0) // true - este in DB
+     { console.log("TRUE")
       res.status(201).json({ok : true})
+  }
     else 
-    {
+    {//false - nu este in DB
+      console.log("FALSE")
       res.status(201).json({ok : false})
     }
   }
@@ -514,4 +517,71 @@ exports.findAdmin = async (req, res, next) => {
     }
     next(err);
   }
+}
+
+exports.getUsers = async (req, res, next) => {
+  const query = url.parse(req.url, true).query;
+  
+  const email = query.email;
+  const roomNo = query.roomNo;
+  try{
+    const users = await Room.selectIdUser(roomNo);
+    console.log("for")
+    const listIdUsers = users[0];
+    const ids= new Array(listIdUsers.length)
+   
+    for (let i=0; i<listIdUsers.length; i ++)
+    {
+      ids[i] = listIdUsers[i].id_user;
+    }
+    console.log("ids", ids)
+    const emails= new Array(ids.length)
+    for (let i=0; i<ids.length; i ++)
+    {
+      const emailsValue = await Room.selectEmails(ids[i]);
+      console.log("EmailValue", emailsValue)
+      emails[i] = emailsValue[0][0];
+    }
+    console.log("emails", emails)
+
+
+    if(emails.length == 0)
+      res.status(201).json(0)
+    else 
+      res.status(201).json({ emails});
+  }
+  catch(err)
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+  next(err);
+  }
+}
+
+exports.deleteUser = async (req, res, next) => {
+  
+  const email = req.query.email
+  console.log("delete user function ", email)
+ // console.log("email: ",title);
+  try{
+    const idRoom = await Room.deleteRoom(email);
+    const idEvents = await Events.deleteEventEmail(email);
+    const idUser = await User.deleteUser(email);
+    
+   
+    res.status(201).json({ message: "deleteuser  ok"});  
+  }
+  catch (err) 
+  {
+    if (!err.statusCode) 
+    {
+      err.statusCode = 500;
+      console.log(err.message);
+    }
+    next(err);
+  }
+  
 }

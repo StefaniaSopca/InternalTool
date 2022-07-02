@@ -23,4 +23,10 @@ module.exports = class User {
     return db.execute(
       'SELECT name FROM users WHERE name <> ?', [username]);
   }
+
+  static deleteUser(email) {
+    console.log("deleteUSer", email);
+    return db.execute(
+      'DELETE FROM users WHERE email = ?;', [email]);
+  }
 };

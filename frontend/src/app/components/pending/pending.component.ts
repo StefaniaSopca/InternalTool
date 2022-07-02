@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PendingComponent implements OnInit {
 
+  requestsOn: boolean = false;
+  usersOn: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  requests(){
+    this.usersOn = false;
+    this.requestsOn = true;
+  }
+
+  users(){
+    this.usersOn = true;
+    this.requestsOn = false;
   }
 
 }

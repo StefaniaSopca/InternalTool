@@ -49,4 +49,9 @@ module.exports = class Events {
   static deleteEvent(idEvent){
     return db.execute('DELETE FROM events WHERE id=?;', [idEvent])
   }
+
+  static deleteEventEmail(email){
+    console.log('deleteEventEmail')
+    return db.execute('DELETE FROM events WHERE id_user = (SELECT id FROM users WHERE email = ?);', [email])
+  }
 };

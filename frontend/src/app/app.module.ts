@@ -15,6 +15,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTableModule } from "@angular/material/table";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSliderModule } from "@angular/material/slider";
 import { FormsModule } from "@angular/forms";
@@ -36,7 +37,9 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component'
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
-import { PendingComponent } from './components/pending/pending.component'; // a plugin!
+import { PendingComponent } from './components/pending/pending.component';
+import { RequestsComponent } from './components/requests/requests.component';
+import { UsersComponent } from './components/users/users.component'; // a plugin!
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -59,6 +62,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ChatComponent,
     SchedulerComponent,
     PendingComponent,
+    RequestsComponent,
+    UsersComponent,
 
   ],
   imports: [
@@ -78,7 +83,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FormsModule,
     NgbModule,
     JwtModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatTableModule
 
   ],
   providers: [AuthGuardService],

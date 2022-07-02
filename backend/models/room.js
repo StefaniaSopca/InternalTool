@@ -37,12 +37,23 @@ module.exports = class Room {
   //     [room.email, room.roomNo]
   //   );
   // }
-
-
-  static select(username, roomNo) {
-    console.log("select", username, roomNo);
+  static selectIdUser(roomNo) {
+    
     return db.execute(
       //email -> username
-      'SELECT email FROM rooms WHERE email <> ? AND roomNo = ?', [username, roomNo]);
+      'SELECT id_user FROM rooms WHERE roomNo = ?;', [roomNo]);
+  }
+
+  static selectEmails(id_user) {
+ 
+    return db.execute(
+      //email -> username
+      'SELECT email FROM users WHERE id = ?;', [id_user]);
+  }
+
+  static deleteRoom(email) {
+    console.log("deleteROOM", email);
+    return db.execute(
+      'DELETE FROM rooms WHERE id_user = (SELECT id FROM users WHERE email =?);', [email]);
   }
 };

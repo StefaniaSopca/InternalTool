@@ -79,8 +79,17 @@ export class OldRoomComponent implements OnInit {
       if( this._flagRoom.ok == true) {
         console.log("data 1")
         this.roomService.saveRoomNo(this.roomEntered.value.newRoom);
-        this.roomService.findRoomUser(this.tokenService.getEmail(), this.roomEntered.value.newRoom).subscribe(d=> {this._flagUserRoom = data; console.log("interior", d);
-        if(this._flagUserRoom == false) { this.roomService.createRoom(this.email, this.roomEntered.value.newRoom).subscribe();}})
+        this.roomService.findRoomUser(this.tokenService.getEmail(), this.roomEntered.value.newRoom)
+          .subscribe(d=> {this._flagUserRoom = d; console.log("interior", d);
+            if(this._flagUserRoom.ok == false)
+            {
+              console.log("CREATE ROOM")
+              this.roomService.createRoom(this.email, this.roomEntered.value.newRoom).subscribe();
+            }
+            else{
+              console.log("WHYYYYY")
+            }
+          })
 
   }
   else{ alert("The team does not exist!")}});
