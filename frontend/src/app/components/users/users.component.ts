@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RoomService } from 'src/app/services/room.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/users.service';
-import { delay, map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { MatTable } from '@angular/material/table';
 
@@ -13,7 +13,7 @@ import { MatTable } from '@angular/material/table';
 })
 export class UsersComponent implements OnInit {
   users: any=[];
-  constructor(private roomService: RoomService, private userService: UserService, private tokenStorageService: TokenStorageService ) { }
+  constructor(private roomService: RoomService, private userService: UserService, private tokenStorageService: TokenService ) { }
   subscription!: Subscription;
   displayedColumns: string[] = ['email', 'delete'];
   clickedRows = new Set<String>();

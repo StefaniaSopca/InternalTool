@@ -6,10 +6,10 @@ const USER_EMAIL = 'auth-email';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenStorageService {
+export class TokenService {
   constructor() { }
 
-  signOut(): void {
+  logout(): void {
     window.sessionStorage.clear();
   }
 

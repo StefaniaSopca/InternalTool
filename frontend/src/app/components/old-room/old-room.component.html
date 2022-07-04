@@ -4,7 +4,7 @@
   <p  class="your-rooms"> <br> <i>Choose your team!</i></p>
   <mat-list  *ngFor="let roomNo of listRooms">
     <!-- <mat-list-item>{{ user }}</mat-list-item> -->
-    <button mat-list-item (click)="myFunc(roomNo)"  class="list-item" > {{ roomNo }} </button>
+    <button mat-list-item (click)="selectedRoom(roomNo)"  class="list-item" > {{ roomNo }} </button>
     </mat-list>
 
      <form class="example-form" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">

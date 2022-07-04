@@ -3,12 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { ChatService } from 'src/app/services/chat.service';
 import { HomeService } from 'src/app/services/home.service';
 import { RoomService } from 'src/app/services/room.service';
-import { ShowMenuService } from 'src/app/services/show-menu.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-old-room',
@@ -26,25 +23,21 @@ export class OldRoomComponent implements OnInit {
   _flagRoom :any;
   _flagUserRoom: any;
   auxialiarFlag!: any;
-  constructor(private homeService: HomeService, private tokenService: TokenStorageService, private roomService: RoomService, chatService: ChatService,private authService: AuthService, private showMenu: ShowMenuService, private router: Router) { }
+  constructor(private homeService: HomeService, private tokenService: TokenService, private roomService: RoomService, private router: Router) { }
 
   ngOnInit(): void {
     this.email = sessionStorage.getItem('auth-email')!;
 
     this.subscription= this.roomService.joinRoom(this.email)
-    .pipe(tap(arr => console.log(arr)))
-    .subscribe (async arr =>{
-      if(arr.arr == 0)
+    .pipe(tap(room => console.log(room)))
+    .subscribe (async room =>{
+      if(room.arr == 0)
       {
         this.flagRooms = true; //nicio camera
-      //   console.log("nada")
-      //   setTimeout(() => {
-      //     this.router.navigate(['/new-room']);
-      // }, 5000);
       }
       else
         { this.flagRooms = false;
-          this.listRooms.push(...arr.arr);}}
+          this.listRooms.push(...room.arr);}}
       )
     this.roomForm = this.createFormGroup();
     this.roomEntered = this.createFormGroup();
@@ -57,7 +50,7 @@ export class OldRoomComponent implements OnInit {
     });
   }
 
-  myFunc(roomNo: string): void
+  selectedRoom(roomNo: string): void
   {
     console.log("am ales ", roomNo);
     this.roomService.saveRoomNo(roomNo);

@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { createEventId} from 'src/app/services/events'
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, delay, map, tap } from 'rxjs/operators';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi,EventInput, CalendarApi, EventDropArg } from '@fullcalendar/angular';
+import { HttpClient,  HttpHeaders } from '@angular/common/http';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, EventDropArg } from '@fullcalendar/angular';
 
-import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { throwError } from 'rxjs';
-import { compileInjectable } from '@angular/compiler';
+import { TokenService } from 'src/app/services/token.service';
 import { SchedulerService } from 'src/app/services/scheduler.service';
-import { ProfileService } from 'src/app/services/profile.service';
+
 import { RoomService } from 'src/app/services/room.service';
 @Component({
   selector: 'app-scheduler',
@@ -25,11 +21,13 @@ export class SchedulerComponent implements OnInit {
   idEvent : any =0;
   //urlEvents = `http://localhost:3000/auth/getEvents/`
   calendarVisible = true;
+
+
   calendarOptions: CalendarOptions = {
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      right: ''
     },
     initialView: 'dayGridMonth',
     eventSources:[
@@ -70,7 +68,7 @@ export class SchedulerComponent implements OnInit {
     this.email_user = this.tokenStorage.getEmail();
   }
 
-  constructor(private roomService: RoomService, private schedulerService:SchedulerService, private http: HttpClient, private tokenStorage: TokenStorageService) {}
+  constructor(private roomService: RoomService, private schedulerService:SchedulerService, private http: HttpClient, private tokenStorage: TokenService) {}
 
   myFunction(){
     this.count ++;
@@ -191,6 +189,7 @@ export class SchedulerComponent implements OnInit {
         })
     }
   }
+
   handleEventClick(clickInfo: EventClickArg) {
     console.log("handleClink ", clickInfo.event.id)
     console.log("here", this.currentEvents)

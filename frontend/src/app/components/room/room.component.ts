@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ShowMenuService } from 'src/app/services/show-menu.service';
 
 @Component({
   selector: 'app-room',
@@ -11,7 +10,7 @@ import { ShowMenuService } from 'src/app/services/show-menu.service';
 export class RoomComponent implements OnInit {
   roomForm!: FormGroup;
   displayedMenu = false;
-  constructor(private showMenu: ShowMenuService, private router: Router) { }
+  constructor( private router: Router) { }
   clicked=false;
 
   ngOnInit(): void {

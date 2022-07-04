@@ -6,7 +6,7 @@ import { ChatService } from './services/chat.service';
 import { HomeService } from './services/home.service';
 import { RoomService } from './services/room.service';
 import { ShowMenuService } from './services/show-menu.service';
-import { TokenStorageService } from './services/token-storage.service';
+import { TokenService } from './services/token.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ import { TokenStorageService } from './services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private roomService: RoomService, private homeService: HomeService, private authGuards:AuthGuardService, private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenStorageService, private router: Router) {
+  constructor(private roomService: RoomService, private homeService: HomeService, private authGuards:AuthGuardService, private chatService: ChatService, private showMenu: ShowMenuService,private tokenStorageService: TokenService, private router: Router) {
     // this.chatService.getMessage().subscribe((data: {user:string, message:string}) => {
     //   this.messageArray.push(data);
     // })
@@ -77,10 +77,7 @@ export class AppComponent {
   }
 
   gets(){
-
-    //this.isLoggedIn = true;
     const user = this.tokenStorageService.getToken();
-    //rezolva aparitia userului pe sidebar
     this.username = this.tokenStorageService.getUser();
     if( user != null)
       return true;
@@ -95,10 +92,7 @@ export class AppComponent {
   logout(): void
   {
     this.chatService.setLogout(true);
-    this.tokenStorageService.signOut();
-    //this.isLoggedIn = false;
-    this.router.navigate(['home']);
-
+    this.tokenStorageService.logout();
     window.location.reload();
   }
 

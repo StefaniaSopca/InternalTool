@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { JwtHelperService,JWT_OPTIONS   } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { first, catchError, tap, map } from "rxjs/operators";
 
-import { Room } from "../models/Room";
 import { User } from "../models/User";
 import { ErrorHandlerService } from './error-handler.service';
-import { TokenStorageService } from './token-storage.service';
+import { TokenService } from './token.service';
 
 
 
@@ -32,7 +31,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
-    private router: Router, private tokenStorage: TokenStorageService) {
+    private router: Router, private tokenStorage: TokenService) {
 
   }
   public jwtHelper:JwtHelperService = new JwtHelperService();
@@ -55,9 +54,9 @@ export class AuthService {
       .post(`${this.url}/auth/login`, { email, password }, this.httpOptions)
   }
 
-  addUsers(email: string): Observable<string>
-  {
-    console.log("add users")
-    return this.http.post<string>(`${this.url}/auth/addUsers`, {email})
-  }
+  // addUsers(email: string): Observable<string>
+  // {
+  //   console.log("add users")
+  //   return this.http.post<string>(`${this.url}/auth/addUsers`, {email})
+  // }
 }

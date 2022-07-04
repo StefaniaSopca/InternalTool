@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service';
 import { RoomService } from 'src/app/services/room.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   created: any = 0;
   user: string = "";
 
-  constructor(private roomService: RoomService,private homeService: HomeService, private http: HttpClient, private tokenStorage: TokenStorageService) { }
+  constructor(private roomService: RoomService,private homeService: HomeService,  private tokenStorage: TokenService) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorage.getUser();
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     console.log("Email front: ", email, roomNo);
     this.homeService.noEvents(email, roomNo)
       .subscribe(data => { this.created = data; console.log("numero:", this.created[0]["no"]);});
-    
+
   }
 
 

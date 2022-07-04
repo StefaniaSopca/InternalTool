@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User';
-import { AuthService } from 'src/app/services/auth.service';
 import { RoomService } from 'src/app/services/room.service';
 import { ShowMenuService } from 'src/app/services/show-menu.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-new-room',
@@ -22,7 +20,7 @@ export class NewRoomComponent implements OnInit {
   _roomNo = "";
   _flagRoom :any;
 
-  constructor(private _tokenService: TokenStorageService,private _roomService: RoomService, private _showMenu: ShowMenuService, private _router: Router) { }
+  constructor(private _tokenService: TokenService,private _roomService: RoomService, private _showMenu: ShowMenuService, private _router: Router) { }
 
   ngOnInit(): void {
     this.clicked=true;

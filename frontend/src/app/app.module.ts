@@ -21,13 +21,11 @@ import { MatSliderModule } from "@angular/material/slider";
 import { FormsModule } from "@angular/forms";
 import { JwtModule   } from '@auth0/angular-jwt';
 
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { PostsComponent } from './components/posts/posts.component';
 import { RoomComponent } from './components/room/room.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+
 import { NewRoomComponent } from './components/new-room/new-room.component';
 import { OldRoomComponent } from './components/old-room/old-room.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -49,12 +47,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
+
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    PostsComponent,
-    ToolbarComponent,
+
     RoomComponent,
     NewRoomComponent,
     OldRoomComponent,
