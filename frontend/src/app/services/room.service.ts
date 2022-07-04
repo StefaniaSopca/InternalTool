@@ -16,23 +16,20 @@ export class RoomService {
 
   currentRoomNo: string = "";
   constructor( private http: HttpClient, private router: Router) {
-    //this.socket = io(this.url);
    }
 
-  // rooms(email: string): Observable<any>{
-  //   return this.http.post(`${this.url}/auth/joinRoom`, {email})
-  // }
 
   saveRoomNo(roomNo: string): void{
     console.log("save room no: ", roomNo);
     this.currentRoomNo = roomNo;
+    window.localStorage.setItem('roomNo', roomNo);
     this.router.navigate(['/home']);
   }
 
   getCurrentRoomNo(): string{
     console.log("get room no: ", this.currentRoomNo);
-    return this.currentRoomNo;}
-
+    return  window.localStorage.getItem('roomNo')!;
+  }
   createRoom(email: string, roomNo: string): Observable<any>{
     console.log("create room service", email, roomNo);
 

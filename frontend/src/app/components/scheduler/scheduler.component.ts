@@ -19,7 +19,6 @@ export class SchedulerComponent implements OnInit {
   email_user: string = "";
   created: any = 0;
   idEvent : any =0;
-  //urlEvents = `http://localhost:3000/auth/getEvents/`
   calendarVisible = true;
 
 
@@ -39,6 +38,7 @@ export class SchedulerComponent implements OnInit {
       second: '2-digit',
       meridiem: false
     },
+    eventColor: '#1e5c40',
     weekends: false,
     editable: true,
     selectable: true,
@@ -46,13 +46,8 @@ export class SchedulerComponent implements OnInit {
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    //eventsSet: this.handleEvents.bind(this),
     eventDrop: this.handleEventDragDrop.bind(this)
-    /*
-    eventAdd:
-    eventChange:
-    eventRemove:
-    */
+
   };
   currentEvents!: EventApi[];
 
@@ -74,80 +69,13 @@ export class SchedulerComponent implements OnInit {
     this.count ++;
   }
 
-  //DE VERIFCAT
-  // handleCalendarToggle() {
-  //   this.calendarOptions ={
-  //     headerToolbar: {
-  //       left: 'prev,next today',
-  //       center: 'title',
-  //       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-  //     },
-  //     initialView: 'dayGridMonth',
-  //     eventSources:[
-  //       {url: `http://localhost:3000/auth/getAllEvents`, method: 'GET', extraParams: { email: this.tokenStorage.getEmail(), roomNo: this.roomService.getCurrentRoomNo()}}],
-  //     eventTimeFormat: {
-  //       hour: '2-digit',
-  //       minute: '2-digit',
-  //       second: '2-digit',
-  //       meridiem: false
-  //     },
-  //     weekends: true,
-  //     editable: true,
-  //     selectable: true,
-  //     selectMirror: true,
-  //     dayMaxEvents: true,
-  //     select: this.handleDateSelect.bind(this),
-  //     eventClick: this.handleEventClick.bind(this),
-  //     eventsSet: this.handleEvents.bind(this),
-  //     eventDrop: this.handleEventDragDrop.bind(this)
-  //     /*
-  //     eventAdd:
-  //     eventChange:
-  //     eventRemove:
-  //     */
-  //   };
-  // }
-
   handleWeekendsToggle() {
     const { calendarOptions } = this;
     calendarOptions.weekends = !calendarOptions.weekends;
   }
 
-  handleAllTasks() {
+  handleAllTasks() {}
 
-    // this.calendarOptions ={
-    // headerToolbar: {
-    //     left: 'prev,next today',
-    //     center: 'title',
-    //     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    //   },
-    //   initialView: 'dayGridMonth',
-    //   eventSources:[
-    //     {url: `http://localhost:3000/auth/getAllEvents`, method: 'GET'}],
-
-    //   eventTimeFormat: { // like '14:30:00'
-    //     hour: '2-digit',
-    //     minute: '2-digit',
-    //     second: '2-digit',
-    //     meridiem: false
-    //   },
-    //   eventColor: '#cc8800',
-    //   weekends: false,
-    //   editable: true,
-    //   selectable: true,
-    //   selectMirror: true,
-    //   dayMaxEvents: true,
-    //   select: this.handleDateSelect.bind(this),
-    //   eventClick: this.handleEventClick.bind(this),
-    //   eventsSet: this.handleEvents.bind(this),
-    //   eventDrop: this.handleEventDragDrop.bind(this)
-    //   /*
-    //   eventAdd:
-    //   eventChange:
-    //   eventRemove:
-    //   */
-    // };
-  }
 
   handleEventDragDrop(dropInfo: EventDropArg){
     console.log("handleDrag")
@@ -163,7 +91,6 @@ export class SchedulerComponent implements OnInit {
         .subscribe((resp:any) => { console.log(resp)});
     }
   }
-
 
   handleDateSelect(selectInfo: DateSelectArg) {
     console.log("handleSelect ", this.roomService.getCurrentRoomNo())

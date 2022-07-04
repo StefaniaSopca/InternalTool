@@ -39,21 +39,8 @@ export class UsersComponent implements OnInit {
   delete(email: string) {
     console.log("delete email: " + email)
     this.userService.deleteUser(email).subscribe(data=>{console.log(data)})
-    // this.userService.getUsers(this.tokenStorageService.getEmail(), this.roomService.getCurrentRoomNo() )
-    // .pipe(tap(emails => console.log(emails)))
-    // .subscribe (emails =>{
-    //           if(emails == 0)
-    //           {
-    //             console.log("nada")
-    //           //   setTimeout(() => {
 
-    //           //     this.router.navigate(['/home']);
-    //           // }, 5000);
-    //           }
-    //           else
-    //             { this.users.push(emails); console.log(this.users)}}
-    //           )
-
+    // de verificat stergere din vector
     const index = this.users[0].emails.indexOf(email, 0);
     if (index > -1) {
       this.users[0].emails.splice(index, 1);

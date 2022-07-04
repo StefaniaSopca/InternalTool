@@ -1,6 +1,6 @@
 
 
-  <form [formGroup]="loginForm" (ngSubmit)="login()" class="formLogin" novalidate>
+  <form [formGroup]="loginForm" (ngSubmit)="login()"  class="formLogin" novalidate>
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput placeholder="ex. stefania@gmail.com" formControlName="email">
@@ -13,6 +13,9 @@
       <button color="accent" [disabled]="!loginForm.valid" mat-raised-button type="submit" class="loginButton">
         <span>Login</span>
       </button>
+      <p  *ngIf = "errFlag" >
+        Wrong password
+      </p>
 
 
   </form>

@@ -5,6 +5,7 @@
     <mat-label >Another team</mat-label>
     <input matInput placeholder="Ex. 2324"  formControlName="newRoom">
   </mat-form-field>
+  <p  *ngIf = "messageFlag">{{ message }}</p>
   <div class="buttons" >
   <!-- <a routerLink="/room"><button  color="accent"  class="actionBtn" > Back</button></a> -->
   <button color="accent"  mat-raised-button (click)="goBack()" class="buttonBAck">

@@ -19,20 +19,15 @@ export class NewRoomComponent implements OnInit {
   _email!: string;
   _roomNo = "";
   _flagRoom :any;
+  message:string = "";
+  messageFlag: boolean = false;
 
   constructor(private _tokenService: TokenService,private _roomService: RoomService, private _showMenu: ShowMenuService, private _router: Router) { }
 
   ngOnInit(): void {
     this.clicked=true;
-    //Todo
-    //request backend to verify if the new number exists already
-    //if it exists, generate another one
-    // this._roomNo= Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-    // const code = document.getElementById('code');
-
-    // if( code != null)
-    //   code.innerHTML = this._roomNo.toString();
-
+    this.message = "";
+    this.messageFlag = false;
     this.roomEntered = this.createFormGroup();
   }
 
@@ -69,7 +64,8 @@ export class NewRoomComponent implements OnInit {
         this._roomService.saveAdmin(this._tokenService.getEmail(), this.roomEntered.value.newRoom).subscribe(data=>{console.log(data)});
     }
     else{
-      alert("The name is already used.")
+      this.message = "The room already exists!"
+      this.messageFlag = true;
     }})
 
   }

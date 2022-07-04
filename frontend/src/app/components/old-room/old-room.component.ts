@@ -23,6 +23,7 @@ export class OldRoomComponent implements OnInit {
   _flagRoom :any;
   _flagUserRoom: any;
   auxialiarFlag!: any;
+  newFlag: boolean = false;
   constructor(private homeService: HomeService, private tokenService: TokenService, private roomService: RoomService, private router: Router) { }
 
   ngOnInit(): void {
@@ -54,10 +55,8 @@ export class OldRoomComponent implements OnInit {
   {
     console.log("am ales ", roomNo);
     this.roomService.saveRoomNo(roomNo);
-    this.homeService.isAdmin(this.tokenService.getEmail(), this.roomService.getCurrentRoomNo() ).subscribe(data =>{this.auxialiarFlag = data as boolean, this.homeService.setIsAdminValue(this.auxialiarFlag.ok)})
-    //this.homeService.isAdmin(this.tokenService.getEmail(), this.roomService.getCurrentRoomNo() ).subscribe(data =>{ this.homeService.isAdminBool = data})
-
-
+    this.homeService.isAdmin(this.tokenService.getEmail(), this.roomService.getCurrentRoomNo() )
+      .subscribe(data =>{this.auxialiarFlag = data as boolean, this.homeService.setIsAdminValue(this.auxialiarFlag.ok)})
   }
 
   goBack(){
@@ -70,19 +69,28 @@ export class OldRoomComponent implements OnInit {
     this.roomService.findRoom(this.roomEntered.value.newRoom)
       .subscribe(data=>{this._flagRoom = data; console.log("data", this._flagRoom.ok);
       if( this._flagRoom.ok == true) {
-        console.log("data 1")
-        this.roomService.saveRoomNo(this.roomEntered.value.newRoom);
-        this.roomService.findRoomUser(this.tokenService.getEmail(), this.roomEntered.value.newRoom)
-          .subscribe(d=> {this._flagUserRoom = d; console.log("interior", d);
-            if(this._flagUserRoom.ok == false)
-            {
-              console.log("CREATE ROOM")
-              this.roomService.createRoom(this.email, this.roomEntered.value.newRoom).subscribe();
-            }
-            else{
-              console.log("WHYYYYY")
-            }
-          })
+        for(let i=0; i<this.listRooms.length; i++){
+          console.log(this.listRooms[i], this.roomEntered.value.newRoom)
+          if(this.listRooms[i] === this.roomEntered.value.newRoom)
+            this.newFlag = true;
+        }
+        console.log("data 1 ", this.listRooms, this.newFlag, this.roomEntered.value.newRoom)
+        if( this.newFlag == false)
+        {
+          this.roomService.saveRoomNo(this.roomEntered.value.newRoom);
+          this.roomService.findRoomUser(this.tokenService.getEmail(), this.roomEntered.value.newRoom)
+            .subscribe(d=> {this._flagUserRoom = d; console.log("interior", d);
+              if(this._flagUserRoom.ok == false)
+              {
+                console.log("CREATE ROOM")
+                this.roomService.createRoom(this.email, this.roomEntered.value.newRoom).subscribe();
+              }
+              else{
+                console.log("WHYYYYY")
+              }
+            })
+          }
+          else{this.selectedRoom(this.roomEntered.value.newRoom) }
 
   }
   else{ alert("The team does not exist!")}});

@@ -51,12 +51,7 @@ export class AuthService {
   {
     console.log("login service")
     return this.http
-      .post(`${this.url}/auth/login`, { email, password }, this.httpOptions)
+      .post(`${this.url}/auth/login`, { email, password }, this.httpOptions);
   }
 
-  // addUsers(email: string): Observable<string>
-  // {
-  //   console.log("add users")
-  //   return this.http.post<string>(`${this.url}/auth/addUsers`, {email})
-  // }
 }

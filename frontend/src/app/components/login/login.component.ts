@@ -12,10 +12,13 @@ import { TokenService } from 'src/app/services/token.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-
+  err: string = ""
+  errFlag: boolean  = false;
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenService) { }
 
   ngOnInit(): void {
+    this.err = "";
+    this.errFlag = false;
     this.loginForm = this.createFormGroup();
   }
 
@@ -29,17 +32,21 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     console.log(this.loginForm.value);
+
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe(data =>
-        {
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUser(data.username);
-        this.tokenStorage.saveEmail(data.email);
+        .subscribe(data =>
+          {
+            this.tokenStorage.saveToken(data.token);
+            this.tokenStorage.saveUser(data.username);
+            this.tokenStorage.saveEmail(data.email);
 
-        this.router.navigate(['/room']),
-        console.log('logged!!!!', data.username)}
-      )
+            this.router.navigate(['/room']),
+            console.log('logged!!!!', data.username)
+          },
+
+          err =>{ this.err = err; this.errFlag = true;})
+
     this.router.navigate(['/room']);
   }
 }
