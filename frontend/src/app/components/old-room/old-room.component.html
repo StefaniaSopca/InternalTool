@@ -7,10 +7,10 @@
     <button mat-list-item (click)="selectedRoom(roomNo)"  class="list-item" > {{ roomNo }} </button>
     </mat-list>
 
-     <form class="example-form" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
+     <form class="another-team" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
       <mat-form-field  appearance="fill">
         <mat-label >Another team</mat-label>
-        <input matInput placeholder="Ex. 2324"  formControlName="newRoom">
+        <input matInput placeholder="Ex. DevsTeam"  formControlName="newRoom">
       </mat-form-field>
       <div class="buttons" >
 
@@ -24,23 +24,27 @@
     </form>
 
 </div>
-<div *ngIf="flagRooms">
-<p  class="your-rooms">No team yet. Enter one!</p>
-<form class="example-form" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
-  <mat-form-field  appearance="fill">
-    <mat-label >Another team</mat-label>
-    <input matInput placeholder="Ex. 2324"  formControlName="newRoom">
-  </mat-form-field>
-  <div class="buttons" >
+<div *ngIf="flagRooms" class="newRoom">
+  <p class="your-rooms">No team. Enter one!</p>
 
-   <button color="accent"  mat-raised-button (click)="goBack()" class="buttonBAck">
-    <span>Back</span>
-  </button>
-  <button color="accent"  mat-raised-button type="submit" class="buttonBAck">
-    <span>Go</span>
-  </button>
-</div>
-</form>
+  <form class="another-team" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
+    <mat-form-field  appearance="fill">
+      <mat-label >Team</mat-label>
+      <input matInput placeholder="Ex. 2324"  formControlName="newRoom">
+    </mat-form-field>
+    <div class="buttons" >
+
+      <button color="accent"  mat-raised-button (click)="goBack()" class="buttonBAck">
+        <span>Back</span>
+      </button>
+      <button color="accent"  mat-raised-button type="submit" class="buttonBAck">
+        <span>Go</span>
+      </button>
+    </div>
+  </form>
+  <div  *ngIf = "errFlag" class="wrong-team" >
+    {{err}}
+  </div>
 </div>
 
 

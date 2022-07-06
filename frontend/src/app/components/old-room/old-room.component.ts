@@ -24,11 +24,14 @@ export class OldRoomComponent implements OnInit {
   _flagUserRoom: any;
   auxialiarFlag!: any;
   newFlag: boolean = false;
+  err: string = "";
+  errFlag: boolean = false;
   constructor(private homeService: HomeService, private tokenService: TokenService, private roomService: RoomService, private router: Router) { }
 
   ngOnInit(): void {
     this.email = sessionStorage.getItem('auth-email')!;
-
+    this.err = "";
+    this.errFlag = false;
     this.subscription= this.roomService.joinRoom(this.email)
     .pipe(tap(room => console.log(room)))
     .subscribe (async room =>{
@@ -93,7 +96,7 @@ export class OldRoomComponent implements OnInit {
           else{this.selectedRoom(this.roomEntered.value.newRoom) }
 
   }
-  else{ alert("The team does not exist!")}});
+  else{ this.err = "The team does not exist!"; this.errFlag = true;}});
 
   }
 }

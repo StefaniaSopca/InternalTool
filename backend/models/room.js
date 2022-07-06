@@ -37,11 +37,11 @@ module.exports = class Room {
   //     [room.email, room.roomNo]
   //   );
   // }
-  static selectIdUser(roomNo) {
+  static selectIdUser(roomNo,email) {
     
     return db.execute(
       //email -> username
-      'SELECT id_user FROM rooms WHERE roomNo = ?;', [roomNo]);
+      'SELECT id_user FROM rooms WHERE roomNo = ? AND id_user <> (SELECT id FROM users WHERE email =?);', [roomNo, email]);
   }
 
   static selectEmails(id_user) {

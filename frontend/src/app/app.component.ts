@@ -26,6 +26,7 @@ export class AppComponent {
   roomNo!: string;
   isAdminBool!: boolean;
   auxialiarFlag!: any;
+  path_logo: string = "/assets/img/logo.png"
   //username2 = this.tokenStorageService.getUser();
   // public roomId!: string;
   // public messageText!: string;

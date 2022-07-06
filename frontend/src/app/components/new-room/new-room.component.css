@@ -10,5 +10,15 @@
   align-items: center;
   border-radius: 25px;
   background-color:#a4afab;
-  margin: 6px;
+  margin: 16px;
+}
+
+.newRoom{
+
+  position: fixed;
+  left: calc(50% - 130px);
+  margin: auto;
+  padding-top: 50px;
+  width: 15%;
+
 }

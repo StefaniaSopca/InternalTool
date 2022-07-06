@@ -5,7 +5,7 @@
   height: 350px;
   text-align: center;
   top: 23%;
-  width: 10%;
+  width: 15%;
 
   padding: 10px;
 
@@ -33,7 +33,21 @@
   align-items: center;
   border-radius: 25px;
   background-color:#a4afab;
-  margin: 6px;
+  margin: 16px;
+}
+
+.oldRoom{
+
+  position: fixed;
+  left: calc(50% - 130px);
+  margin: auto;
+  padding-top: 50px;
+  width: 15%;
+
+}
+
+.another-team{
+  padding-top: 20px;
 }
 
 .your-rooms
@@ -44,4 +58,22 @@
   text-align: center;
   font-size: 23px;
 
+}
+
+.newRoom{
+
+  position: fixed;
+  left: calc(50% - 130px);
+  margin: auto;
+  padding-top: 50px;
+  width: 15%;
+
+}
+
+.wrong-team{
+  position: relative;
+  top: 8%;
+  left: 10%;
+  width: 200px;
+  color: red;
 }

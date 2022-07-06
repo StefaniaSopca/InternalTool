@@ -16,6 +16,13 @@ export class LoginComponent implements OnInit {
   errFlag: boolean  = false;
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenService) { }
 
+  account_validation_messages = {
+    'password': [
+      { type: 'required', message: 'Password is required' },
+      { type: 'minlength', message: 'Password must be at least 7 characters long' }
+
+    ]
+  }
   ngOnInit(): void {
     this.err = "";
     this.errFlag = false;

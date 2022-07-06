@@ -79,7 +79,7 @@ export class SchedulerComponent implements OnInit {
 
   handleEventDragDrop(dropInfo: EventDropArg){
     console.log("handleDrag")
-    alert(dropInfo.event.title + " was dropped on " + dropInfo.event.start);
+    //alert(dropInfo.event.title + " was dropped on " + dropInfo.event.start);
 
     if (!confirm("Are you sure about this change?")) {
       dropInfo.revert();
@@ -94,7 +94,7 @@ export class SchedulerComponent implements OnInit {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     console.log("handleSelect ", this.roomService.getCurrentRoomNo())
-    const title = prompt('Please enter a new title for your event');
+    const title = prompt('Please enter the task name.');
 
     const calendarApi = selectInfo.view.calendar;
 
@@ -121,7 +121,7 @@ export class SchedulerComponent implements OnInit {
     console.log("handleClink ", clickInfo.event.id)
     console.log("here", this.currentEvents)
 
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}' start '${clickInfo.event.start}'`)) {
+    if (confirm(`Do you want to delete the task '${clickInfo.event.title}'?`)) {
       clickInfo.event.remove();
       this.schedulerService.deleteEvent(clickInfo).subscribe(msg => console.log(msg))
     }

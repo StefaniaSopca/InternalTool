@@ -68,7 +68,7 @@ exports.login = async (req, res, next) => {
         userId: storedUser.id,
       },
       'secretfortoken',
-      { expiresIn: '200s' }
+      { expiresIn: '2h' }
     );
     res.status(200).json({token:token, username: storedUser.name, email: storedUser.email });
     
@@ -525,7 +525,7 @@ exports.getUsers = async (req, res, next) => {
   const email = query.email;
   const roomNo = query.roomNo;
   try{
-    const users = await Room.selectIdUser(roomNo);
+    const users = await Room.selectIdUser(roomNo, email);
     console.log("for")
     const listIdUsers = users[0];
     const ids= new Array(listIdUsers.length)

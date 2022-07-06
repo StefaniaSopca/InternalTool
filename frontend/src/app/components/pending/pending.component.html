@@ -1,10 +1,11 @@
 <div class="buttons">
-  <button color="accent"  mat-raised-button (click)="requests()" class="buttonBAck">
-    <span>Requests</span>
-  </button>
   <button color="accent"  mat-raised-button (click)="users()" class="buttonBAck">
     <span>Users</span>
   </button>
+  <button color="accent"  mat-raised-button (click)="requests()" class="buttonBAck">
+    <span>Requests</span>
+  </button>
+
 </div>
-<div *ngIf = "requestsOn" ><app-requests></app-requests></div>
-<div *ngIf = "usersOn" ><app-users></app-users></div>
+<div *ngIf = "requestsOn"  ><app-requests></app-requests></div>
+<div *ngIf = "usersOn" class="userssss"><app-users></app-users></div>

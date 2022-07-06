@@ -1,12 +1,12 @@
 <!-- <button (click)="generateRoomCode()" [disabled]="clicked">Generate room code</button> -->
-
-<form class="example-form" (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
+<div  class="newRoom">
+<form (ngSubmit)="newRoomEnter()" [formGroup]="roomEntered">
   <mat-form-field  appearance="fill">
-    <mat-label >Another team</mat-label>
-    <input matInput placeholder="Ex. 2324"  formControlName="newRoom">
+    <mat-label >New team</mat-label>
+    <input matInput placeholder="Ex. DevsTeam"  formControlName="newRoom">
   </mat-form-field>
   <p  *ngIf = "messageFlag">{{ message }}</p>
-  <div class="buttons" >
+  <!-- <div class="buttons" > -->
   <!-- <a routerLink="/room"><button  color="accent"  class="actionBtn" > Back</button></a> -->
   <button color="accent"  mat-raised-button (click)="goBack()" class="buttonBAck">
     <span>Back</span>
@@ -14,5 +14,6 @@
   <button color="accent"  mat-raised-button type="submit" class="buttonBAck">
     <span>Go</span>
   </button>
-</div>
+<!-- </div> -->
 </form>
+</div>

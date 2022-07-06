@@ -13,25 +13,16 @@ export class HomeComponent implements OnInit {
 
   created: any = 0;
   user: string = "";
-
+  roomNo: string = "";
   constructor(private roomService: RoomService,private homeService: HomeService,  private tokenStorage: TokenService) { }
 
   ngOnInit(): void {
     this.user = this.tokenStorage.getUser();
     var email =this.tokenStorage.getEmail()
-    var roomNo = this.roomService.getCurrentRoomNo();
-    console.log("Email front: ", email, roomNo);
-    this.homeService.noEvents(email, roomNo)
+    this.roomNo = this.roomService.getCurrentRoomNo();
+    console.log("Email front: ", email, this.roomNo);
+    this.homeService.noEvents(email, this.roomNo)
       .subscribe(data => { this.created = data; console.log("numero:", this.created[0]["no"]);});
 
   }
-
-
-  // component has a prop named count
-  // the page has a button
-  // on button click call a function
-  // the function returns the next value ( ++)
-  // does the UI updated the value when u click the button?
-
-
 }

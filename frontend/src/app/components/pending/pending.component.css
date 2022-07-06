@@ -1,10 +1,39 @@
-.buttons {
+/* .buttons {
   width: 50px;
   margin: 0 auto;
-}
+} */
 
 .action_btn {
   display: inline-block;
   width: calc(50% - 4px);
   margin: 0 auto;
+}
+
+.buttons {
+
+  padding-top : 10px;
+  position: fixed;
+  left: calc(50% - 100px);
+  width: 200px;
+  margin: 0 auto;
+  display: inline;}
+
+
+.buttonBAck{
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background-color:#a4afab;
+  margin: 2px;
+}
+
+.userssss
+{
+  padding-top : 80px;
+  position: fixed;
+  left: calc(50% - 150px);
+  width: 300px;
+  display: inline;
+  justify-content: center;
 }
