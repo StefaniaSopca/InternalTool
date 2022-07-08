@@ -8,7 +8,7 @@ const router = express.Router();
 const User = require('../models/user');
 // var cors = require('cors'); 
 // router.use(cors());
-const authController = require('../controllers/auth');
+const authController = require('../controllers/scheduler');
 const indexController = require('../index');
 router.post(
   '/signup',

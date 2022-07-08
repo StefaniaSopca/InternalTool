@@ -71,29 +71,30 @@ export class OldRoomComponent implements OnInit {
     console.log("new room entered: ", this.roomEntered.value.newRoom)
     this.roomService.findRoom(this.roomEntered.value.newRoom)
       .subscribe(data=>{this._flagRoom = data; console.log("data", this._flagRoom.ok);
-      if( this._flagRoom.ok == true) {
+
+      if( this._flagRoom.ok == true) { //exista camera in baza de date
         for(let i=0; i<this.listRooms.length; i++){
           console.log(this.listRooms[i], this.roomEntered.value.newRoom)
-          if(this.listRooms[i] === this.roomEntered.value.newRoom)
+          if(this.listRooms[i] === this.roomEntered.value.newRoom)//exista camera in lista din interfata
             this.newFlag = true;
         }
         console.log("data 1 ", this.listRooms, this.newFlag, this.roomEntered.value.newRoom)
-        if( this.newFlag == false)
+        if( this.newFlag == false) //nu exista camera in lista din interfata
         {
-          this.roomService.saveRoomNo(this.roomEntered.value.newRoom);
+          this.roomService.saveRoomNo(this.roomEntered.value.newRoom); //salvare local camera
           this.roomService.findRoomUser(this.tokenService.getEmail(), this.roomEntered.value.newRoom)
             .subscribe(d=> {this._flagUserRoom = d; console.log("interior", d);
-              if(this._flagUserRoom.ok == false)
+              if(this._flagUserRoom.ok == false) //nu e in DB
               {
-                console.log("CREATE ROOM")
                 this.roomService.createRoom(this.email, this.roomEntered.value.newRoom).subscribe();
               }
-              else{
-                console.log("WHYYYYY")
-              }
+
             })
-          }
-          else{this.selectedRoom(this.roomEntered.value.newRoom) }
+        }
+        else
+        {
+          this.selectedRoom(this.roomEntered.value.newRoom)
+        }
 
   }
   else{ this.err = "The team does not exist!"; this.errFlag = true;}});

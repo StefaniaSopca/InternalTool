@@ -6,6 +6,8 @@ import { TokenService } from 'src/app/services/token.service';
 import { SchedulerService } from 'src/app/services/scheduler.service';
 
 import { RoomService } from 'src/app/services/room.service';
+import { AlertComponent } from '../alert/alert.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-scheduler',
 
@@ -30,7 +32,7 @@ export class SchedulerComponent implements OnInit {
     },
     initialView: 'dayGridMonth',
     eventSources:[
-      {url: `http://localhost:3000/auth/getEvents`, method: 'GET', extraParams: { email: this.tokenStorage.getEmail(), roomNo: this.roomService.getCurrentRoomNo()}}],
+      {url: `http://localhost:3000/scheduler/getEvents`, method: 'GET', extraParams: { email: this.tokenStorage.getEmail(), roomNo: this.roomService.getCurrentRoomNo()}}],
 
     eventTimeFormat: {
       hour: '2-digit',
@@ -63,7 +65,7 @@ export class SchedulerComponent implements OnInit {
     this.email_user = this.tokenStorage.getEmail();
   }
 
-  constructor(private roomService: RoomService, private schedulerService:SchedulerService, private http: HttpClient, private tokenStorage: TokenService) {}
+  constructor(private dialog: MatDialog, private roomService: RoomService, private schedulerService:SchedulerService, private http: HttpClient, private tokenStorage: TokenService) {}
 
   myFunction(){
     this.count ++;
@@ -122,10 +124,22 @@ export class SchedulerComponent implements OnInit {
     console.log("here", this.currentEvents)
 
     if (confirm(`Do you want to delete the task '${clickInfo.event.title}'?`)) {
-      clickInfo.event.remove();
-      this.schedulerService.deleteEvent(clickInfo).subscribe(msg => console.log(msg))
+
+      this.schedulerService.deleteEvent(clickInfo).subscribe(msg => {console.log(msg); clickInfo.event.remove();}, err => { this.openDialog();})
     }
   }
+
+
+  openDialog(): void {
+    this.dialog.open(AlertComponent, {
+       width: '250px',
+       data: "The delete operation failed. Please try again."
+     })
+       setTimeout(() =>
+     {
+    },
+     5000);
+   }
 
   handleEvents() {
     var email = this.tokenStorage.getEmail()

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AlertComponent } from '../alert/alert.component';
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) {}
+
 
   ngOnInit(): void {
+    
   }
 
 }

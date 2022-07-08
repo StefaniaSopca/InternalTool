@@ -51,9 +51,9 @@ module.exports = class Room {
       'SELECT email FROM users WHERE id = ?;', [id_user]);
   }
 
-  static deleteRoom(email) {
+  static deleteRoom(email, roomNo) {
     console.log("deleteROOM", email);
     return db.execute(
-      'DELETE FROM rooms WHERE id_user = (SELECT id FROM users WHERE email =?);', [email]);
+      'DELETE FROM rooms WHERE id_user = (SELECT id FROM users WHERE email =?) AND roomNo = ?;', [email, roomNo]);
   }
 };

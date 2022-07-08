@@ -20,6 +20,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSliderModule } from "@angular/material/slider";
 import { FormsModule } from "@angular/forms";
 import { JwtModule   } from '@auth0/angular-jwt';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
@@ -37,7 +38,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import { PendingComponent } from './components/pending/pending.component';
 import { RequestsComponent } from './components/requests/requests.component';
-import { UsersComponent } from './components/users/users.component'; // a plugin!
+import { UsersComponent } from './components/users/users.component';
+import { AlertComponent } from './components/alert/alert.component'; // a plugin!
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -61,6 +63,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PendingComponent,
     RequestsComponent,
     UsersComponent,
+    AlertComponent,
 
   ],
   imports: [
@@ -81,7 +84,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgbModule,
     JwtModule,
     FullCalendarModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
 
   ],
   providers: [AuthGuardService],

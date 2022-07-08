@@ -27,38 +27,6 @@ export class AppComponent {
   isAdminBool!: boolean;
   auxialiarFlag!: any;
   path_logo: string = "/assets/img/logo.png"
-  //username2 = this.tokenStorageService.getUser();
-  // public roomId!: string;
-  // public messageText!: string;
-  // public messageArray: { user: string, message: string}[] = [];
-
-  // public phone!: string;
-  // public currentUser: any;
-  // public selectedUser: any;
-
-  // public userList=[
-  //   {
-  //     id: 1,
-  //     name: 'John',
-  //     phone:'899999999',
-  //     roomId:{
-  //       1:'room-1',
-  //       2:'room-2',
-  //       3:'room-3',
-  //     }
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Alina',
-  //     phone:'233456789',
-  //      roomId:{
-  //       1:'room-1',
-  //       2:'room-2',
-  //       3:'room-3',
-  //     }
-
-  //   }
-  // ];
 
   ngOnInit(): void {
     //this.displayedMenu = false;
@@ -86,7 +54,7 @@ export class AppComponent {
   }
 
   isAdmin(){
-    console.log("admin in app ", this.homeService.getIsAdminValue())
+    //console.log("admin in app ", this.homeService.getIsAdminValue())
     return this.homeService.getIsAdminValue()
   }
 

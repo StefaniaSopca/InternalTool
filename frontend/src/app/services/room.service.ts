@@ -10,7 +10,7 @@ import { io, Socket } from 'socket.io-client';
 
 export class RoomService {
   //private socket: Socket;
-  private url='http://localhost:3000';
+  private url='http://localhost:3000/scheduler';
 
   listRooms = new Subject<string>();
 
@@ -33,27 +33,27 @@ export class RoomService {
   createRoom(email: string, roomNo: string): Observable<any>{
     console.log("create room service", email, roomNo);
 
-    return this.http.post<number>(`${this.url}/auth/createRoom`, {email, roomNo})
+    return this.http.post<number>(`${this.url}/createRoom`, {email, roomNo})
   }
 
 
   joinRoom(email: string): Observable<any>{
     console.log("join room service")
 
-    return this.http.post<number>(`${this.url}/auth/joinRoom`, {email})
+    return this.http.post<number>(`${this.url}/joinRoom`, {email})
   }
 
   findRoom(roomNo: string){
-    return this.http.get(`${this.url}/auth/findRoom`, {params:{roomNo:roomNo}})
+    return this.http.get(`${this.url}/findRoom`, {params:{roomNo:roomNo}})
   }
 
   saveAdmin(email: string, roomNo: string){
     console.log("save admin params: ", email, roomNo)
-    return this.http.post(`${this.url}/auth/saveAdmin`, {email, roomNo})
+    return this.http.post(`${this.url}/saveAdmin`, {email, roomNo})
   }
 
   findRoomUser(email: string, roomNo: string){
-    return this.http.post(`${this.url}/auth/findRoomUser`, {email, roomNo})
+    return this.http.post(`${this.url}/findRoomUser`, {email, roomNo})
   }
 
 }

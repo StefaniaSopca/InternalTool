@@ -5,6 +5,8 @@ import { UserService } from 'src/app/services/users.service';
 import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { MatTable } from '@angular/material/table';
+import { AlertComponent } from '../alert/alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +15,7 @@ import { MatTable } from '@angular/material/table';
 })
 export class UsersComponent implements OnInit {
   users: any=[];
-  constructor(private roomService: RoomService, private userService: UserService, private tokenStorageService: TokenService ) { }
+  constructor(private dialog: MatDialog,private roomService: RoomService, private userService: UserService, private tokenStorageService: TokenService ) { }
   subscription!: Subscription;
   displayedColumns: string[] = ['email', 'delete'];
   clickedRows = new Set<String>();
@@ -25,26 +27,33 @@ export class UsersComponent implements OnInit {
     .subscribe (emails =>{
               if(emails == 0)
               {
-                console.log("nada")
-              //   setTimeout(() => {
-
-              //     this.router.navigate(['/home']);
-              // }, 5000);
+                this.openDialog();
               }
               else
                 { this.users.push(emails); console.log(this.users)}}
               )
   }
 
+  openDialog(): void {
+    this.dialog.open(AlertComponent, {
+       width: '250px',
+       data: "Tell your teammates to join your room!"
+     })
+       setTimeout(() =>
+     {
+    },
+     5000);
+   }
+
   delete(email: string) {
     console.log("delete email: " + email)
-    this.userService.deleteUser(email).subscribe(data=>{console.log(data)})
+    this.userService.deleteUser(email, this.roomService.getCurrentRoomNo()).subscribe(data=>{
 
-    // de verificat stergere din vector
-    const index = this.users[0].emails.indexOf(email, 0);
-    if (index > -1) {
-      this.users[0].emails.splice(index, 1);
-    }
+      console.log(data)})
+
+    this.users[0].emails.forEach((value: { email: string; }, index: any) =>{
+      if(value.email == email)  this.users[0].emails.splice(index, 1);
+    })
     console.log("after", this.users[0].emails)
     this.table.renderRows();
   }

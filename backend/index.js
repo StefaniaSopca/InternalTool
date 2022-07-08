@@ -2,7 +2,7 @@ const express = require('express');
 
 const bodyParser = require('body-parser');
 
-const authRoutes = require('./routes/auth');
+const schedulerRoutes = require('./routes/scheduler');
 
 const errorController = require('./controllers/error');
 
@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 
 
 
-app.use('/auth', authRoutes);
+app.use('/scheduler', schedulerRoutes);
 
 app.use(errorController.get404);
 

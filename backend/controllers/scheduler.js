@@ -564,12 +564,14 @@ exports.getUsers = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   
   const email = req.query.email
-  console.log("delete user function ", email)
+  const roomNo = req.query.roomNo
+  console.log("delete user function ", email, roomNo)
  // console.log("email: ",title);
   try{
-    const idRoom = await Room.deleteRoom(email);
-    const idEvents = await Events.deleteEventEmail(email);
-    const idUser = await User.deleteUser(email);
+    
+    const idEvents = await Events.deleteEventEmail(email, roomNo);
+    const idRoom = await Room.deleteRoom(email, roomNo);
+    //const idUser = await User.deleteUser(email);
     
    
     res.status(201).json({ message: "deleteuser  ok"});  

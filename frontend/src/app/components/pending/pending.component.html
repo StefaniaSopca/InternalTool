@@ -2,9 +2,10 @@
   <button color="accent"  mat-raised-button (click)="users()" class="buttonBAck">
     <span>Users</span>
   </button>
-  <button color="accent"  mat-raised-button (click)="requests()" class="buttonBAck">
+  <button color="accent"  mat-raised-button (click)="openDialog()" class="buttonBAck">
     <span>Requests</span>
   </button>
+  <!-- <button mat-raised-button (click)="openDialog()" class="buttonBAck">Requests </button> -->
 
 </div>
 <div *ngIf = "requestsOn"  ><app-requests></app-requests></div>

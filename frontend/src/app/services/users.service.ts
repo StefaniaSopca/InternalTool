@@ -8,16 +8,16 @@ import { Injectable } from '@angular/core';
 
 export class UserService {
   //private socket: Socket;
-  private url='http://localhost:3000';
+  private url='http://localhost:3000/scheduler';
 
   constructor( private http: HttpClient){}
 
   public getUsers(email:string, roomNo: string){
-    return this.http.get(`${this.url}/auth/getUsers`, {params:{email: email, roomNo: roomNo}})
+    return this.http.get(`${this.url}/getUsers`, {params:{email: email, roomNo: roomNo}})
   }
 
-  public deleteUser(email:string){
-    return this.http.delete(`${this.url}/auth/deleteUser`, {params:{email: email}});
+  public deleteUser(email:string, roomNo: string){
+    return this.http.delete(`${this.url}/deleteUser`, {params:{email: email, roomNo: roomNo}});
   }
 
 }

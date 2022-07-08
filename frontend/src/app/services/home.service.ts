@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 
 export class HomeService {
   //private socket: Socket;
-  private url='http://localhost:3000';
+  private url='http://localhost:3000/scheduler';
   private _isAdminValue = false;
 
   public getIsAdminValue() {
@@ -23,11 +23,11 @@ export class HomeService {
 
   noEvents(email:string, roomNo: string){
     console.log("noEventsss", roomNo);
-    return this.http.get(`http://localhost:3000/auth/getNoEvents`, {params:{email: email, roomNo: roomNo}})
+    return this.http.get(`${this.url}/getNoEvents`, {params:{email: email, roomNo: roomNo}})
   }
 
   isAdmin(email:string, roomNo:string){
-    return this.http.get(`http://localhost:3000/auth/findAdmin`, {params:{email: email, roomNo: roomNo}})
+    return this.http.get(`${this.url}/findAdmin`, {params:{email: email, roomNo: roomNo}})
   }
 
 }

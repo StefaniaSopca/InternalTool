@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.roomNo = this.roomService.getCurrentRoomNo();
+    console.log("local " ,this.roomNo);
     this.currentUser = this.token.getUser();
     this.currentToken = this.token.getToken();
   }
